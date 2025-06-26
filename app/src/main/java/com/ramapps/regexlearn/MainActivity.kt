@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isEmpty
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,8 +24,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initViews()
         addListeners()
-
-        supportFragmentManager.beginTransaction().add(R.id.main_fragment_container_view, HomeFragment.newInstance()).commit()
+        if (supportFragmentManager.fragments.isEmpty()) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_fragment_container_view, HomeFragment.newInstance()).commit()
+        }
     }
 
     private fun addListeners() {
