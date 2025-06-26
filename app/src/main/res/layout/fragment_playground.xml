@@ -48,46 +48,55 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Flags:"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
-
-                <com.google.android.material.chip.ChipGroup
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/playground_fragment_chip_group"
-                    app:singleLine="true"
-                    android:layout_marginStart="16dp">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <com.google.android.material.chip.Chip
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Global"
-                        app:chipIcon="@drawable/g_mobiledata_24px"/>
+                        android:text="Flags:"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Multiline"
-                        app:chipIcon="@drawable/metro_24px" />
+                        android:id="@+id/playground_fragment_chip_group"
+                        app:singleLine="true"
+                        android:layout_marginStart="16dp">
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ignore Case"
-                        app:chipIcon="@drawable/info_i_24px"/>
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Global"
+                            android:checkable="true"
+                            app:chipIcon="@drawable/g_mobiledata_24px"/>
 
-                </com.google.android.material.chip.ChipGroup>
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Multiline"
+                            android:checkable="true"
+                            app:chipIcon="@drawable/metro_24px" />
 
-            </LinearLayout>
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ignore Case"
+                            android:checkable="true"
+                            app:chipIcon="@drawable/info_i_24px"/>
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
