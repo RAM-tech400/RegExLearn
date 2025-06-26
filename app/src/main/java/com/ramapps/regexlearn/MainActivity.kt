@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+import kotlin.math.max
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +34,14 @@ class MainActivity : AppCompatActivity() {
     private fun addListeners() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            val displayCutouts = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+
+            val top = max(systemBars.top, displayCutouts.top)
+            val right = max(systemBars.right, displayCutouts.right)
+            val bottom = max(systemBars.bottom, displayCutouts.bottom)
+            val left = max(systemBars.left, displayCutouts.left)
+
+            v.setPadding(left, 0, right, 0)
             insets
         }
 
