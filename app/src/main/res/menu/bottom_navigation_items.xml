@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/home"
+        android:icon="@drawable/outline_home_24"/>
+
+    <item
+        android:title="@string/learning"
+        android:icon="@drawable/outline_history_edu_24"/>
+
+    <item
+        android:title="@string/playground"
+        android:icon="@drawable/outline_playground_24px"/>
+
+    <item
+        android:title="@string/settings"
+        android:icon="@drawable/outline_settings_24"/>
+</menu>
