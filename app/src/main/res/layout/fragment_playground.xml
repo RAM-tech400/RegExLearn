@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:id="@+id/playground_fragment_app_bar_layout">
+        android:id="@+id/playground_fragment_app_bar_layout"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
