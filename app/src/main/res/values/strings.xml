@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RegEx Learn</string>
+    <string name="home">Home</string>
+    <string name="learning">Learning</string>
+    <string name="playground">Playground</string>
+    <string name="settings">Settings</string>
 </resources>
