@@ -1,6 +1,8 @@
 package com.ramapps.regexlearn
 
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initViews()
         addListeners()
+
+        supportFragmentManager.beginTransaction().add(R.id.main_fragment_container_view, HomeFragment.newInstance()).commit()
     }
 
     private fun addListeners() {
@@ -28,6 +33,39 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, 0, systemBars.right, 0)
             insets
         }
+
+        bottomNavigationView.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when(item.itemId) {
+                    R.id.menu_item_home -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container_view, HomeFragment.newInstance())
+                            .commit()
+                        return true
+                    }
+                    R.id.menu_item_learning -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container_view, LearningFragment.newInstance())
+                            .commit()
+                        return true
+                    }
+                    R.id.menu_item_playground -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container_view, PlaygroundFragment.newInstance())
+                            .commit()
+                        return true
+                    }
+                    R.id.menu_item_settings -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container_view, HomeFragment.newInstance())
+                            .commit()
+                        Toast.makeText(applicationContext, "Implement soon...", Toast.LENGTH_SHORT).show()
+                        return true
+                    }
+                }
+                return false
+            }
+        })
     }
 
     private fun initViews() {
