@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/outline_play_arrow_24"
+        android:id="@+id/item_view_lesson_image_view_state"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:id="@+id/item_view_lesson_text_view_title"
+        android:text="1. Lesson One Title Lesson One Title Lesson One Title Lesson One Title"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+</LinearLayout>
