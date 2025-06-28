@@ -30,14 +30,14 @@ class LearningFragment : Fragment() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val dialog = BottomSheetDialog(requireContext())
 
-            dialog.setContentView(getLessonSelectionView())
+            dialog.setContentView(makeLessonSelectionView())
             dialog.behavior.isShouldRemoveExpandedCorners = true
 
             return dialog
         }
 
         @SuppressLint("InflateParams")
-        fun getLessonSelectionView() : View {
+        fun makeLessonSelectionView() : View {
             val lessonsTitle = Utils().getLessonsTitleFromDataJson(
                 Utils().getJSONArrayFromRaw(requireContext().resources, R.raw.lessons_data),
                 Utils().getJSONObjectFromRaw(requireContext().resources, R.raw.lessons_localization_data),
