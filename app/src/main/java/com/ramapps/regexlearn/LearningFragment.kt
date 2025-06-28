@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 
 class LearningFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class LearningFragment : Fragment() {
             val dialog = BottomSheetDialog(requireContext())
 
             dialog.setContentView(makeLessonSelectionView())
-            dialog.behavior.isShouldRemoveExpandedCorners = true
+            dialog.behavior.maxHeight = (requireContext().resources.displayMetrics.heightPixels * 0.7).toInt()
 
             return dialog
         }
