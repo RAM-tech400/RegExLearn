@@ -1,26 +1,125 @@
 package com.ramapps.regexlearn
 
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import androidx.core.view.updateMarginsRelative
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class LearningFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    class LessonSelectionBottomSheet : BottomSheetDialogFragment() {
+        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+            val dialog = BottomSheetDialog(requireContext())
+
+            dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            dialog.setContentView(LearningFragment().getLessonSelectionView(requireContext()))
+
+            return dialog
+        }
+
+        companion object {
+            const val TAG = "LessonSelectionBottomSheet"
+        }
     }
+
+    private lateinit var toolbar: Toolbar
+    private val lessonSelectionBottomSheet = LessonSelectionBottomSheet()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_learning, container, false)
+        val view = inflater.inflate(R.layout.fragment_learning, container, false)
+        initViews(view)
+        addListeners()
+        return view
+    }
+
+    private fun addListeners() {
+        Log.v(TAG, "addListeners()")
+        toolbar.setOnMenuItemClickListener(object : OnMenuItemClickListener{
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                when (item!!.itemId) {
+                    R.id.menu_item_select_lesson -> {
+                        lessonSelectionBottomSheet.show(requireActivity().supportFragmentManager, LessonSelectionBottomSheet.TAG)
+                        return true
+                    }
+                    else -> return false
+                }
+            }
+        })
+    }
+
+    private fun initViews(view: View) {
+        toolbar = view.findViewById(R.id.learning_fragment_toolbar)
+    }
+
+    @SuppressLint("InflateParams")
+    fun getLessonSelectionView(context: Context) : View {
+        val lessonsTitle = Utils().getLessonsTitleFromDataJson(
+            Utils().getJSONArrayFromRaw(context.resources, R.raw.lessons_data),
+            Utils().getJSONObjectFromRaw(context.resources, R.raw.lessons_localization_data),
+        )
+
+        val scrollView = ScrollView(context)
+        scrollView.scrollBarSize = 0
+
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+
+        scrollView.removeAllViews()
+        layout.removeAllViews()
+
+        val titleTextView = TextView(context)
+        titleTextView.text = context.getString(R.string.select_lesson)
+        titleTextView.textSize = 22f
+        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        layoutParams.updateMarginsRelative(24, 24, 0, 16)
+        titleTextView.layoutParams = layoutParams
+        layout.addView(titleTextView)
+
+        lessonsTitle.forEach { t ->
+            val v = LayoutInflater.from(context).inflate(R.layout.item_view_lesson, null)
+            val lessonTitleTextView = v.findViewById<TextView>(R.id.item_view_lesson_text_view_title)
+            v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
+            val parentLayout = v.findViewById<LinearLayout>(R.id.item_view_lesson_parent)
+
+            lessonTitleTextView.text = t
+
+            parentLayout.setOnClickListener{ _ ->
+                Toast.makeText(context, "Lesson <${t}> selected", Toast.LENGTH_SHORT).show()
+            }
+
+            v.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layout.addView(v)
+        }
+
+        scrollView.addView(layout)
+
+        return scrollView
     }
 
     companion object {
         @JvmStatic
         fun newInstance() = LearningFragment()
+
+        const val TAG = "LearningFragment"
     }
 }
