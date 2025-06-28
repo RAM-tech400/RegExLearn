@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -102,6 +103,8 @@ class LearningFragment : Fragment() {
     private lateinit var descriptionTextView : TextView
     private lateinit var contentTextView : TextView
     private lateinit var regexTextInput : TextInputLayout
+    private lateinit var previousLessonButton : Button
+    private lateinit var nextLessonButton: Button
     private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection{
         override fun onSelect(lessonId: Int) {
             Log.v(TAG, "Lesson selection listener, Selected Lesson Id: ${lessonId}")
@@ -159,6 +162,50 @@ class LearningFragment : Fragment() {
                 }
             }
         })
+
+        previousLessonButton.setOnClickListener{v ->
+            val selectedLessonId = requireActivity().getSharedPreferences(
+                GlobalVariables.PREFERENCES_NAME_USER_DATA,
+                Activity.MODE_PRIVATE)
+                .getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+
+            if (selectedLessonId > 0) {
+                Log.v(TAG, "Loading previous lesson. Id:${selectedLessonId - 1}")
+                requireActivity()
+                    .getSharedPreferences(
+                        GlobalVariables.PREFERENCES_NAME_USER_DATA,
+                        Activity.MODE_PRIVATE)
+                    .edit()
+                    .putInt(
+                        GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                        selectedLessonId - 1)
+                    .apply()
+
+                loadLesson()
+            }
+        }
+
+        nextLessonButton.setOnClickListener{v ->
+            val selectedLessonId = requireActivity().getSharedPreferences(
+                GlobalVariables.PREFERENCES_NAME_USER_DATA,
+                Activity.MODE_PRIVATE)
+                .getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+
+            if (selectedLessonId < (Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).length() - 1)) {
+                Log.v(TAG, "Loading previous lesson. Id:${selectedLessonId + 1}")
+                requireActivity()
+                    .getSharedPreferences(
+                        GlobalVariables.PREFERENCES_NAME_USER_DATA,
+                        Activity.MODE_PRIVATE)
+                    .edit()
+                    .putInt(
+                        GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                        selectedLessonId + 1)
+                    .apply()
+
+                loadLesson()
+            }
+        }
     }
 
     private fun initViews(view: View) {
@@ -166,6 +213,8 @@ class LearningFragment : Fragment() {
         descriptionTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_description)
         contentTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_content)
         regexTextInput = view.findViewById(R.id.learning_fragment_text_input_layout_regex)
+        previousLessonButton = view.findViewById(R.id.learning_fragment_button_previous_lesson)
+        nextLessonButton = view.findViewById(R.id.learning_fragment_button_next_lesson)
     }
 
     companion object {

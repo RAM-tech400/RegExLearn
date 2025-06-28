@@ -10,4 +10,6 @@
     <string name="select_lesson">Select lesson</string>
     <string name="add_regex_input">Add RegEx Input</string>
     <string name="remove_last_regex_input">Remove Last RegEx Input</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>
