@@ -101,7 +101,7 @@ class LearningFragment : Fragment() {
             v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
             val parentLayout = v.findViewById<LinearLayout>(R.id.item_view_lesson_parent)
 
-            lessonTitleTextView.text = t
+            lessonTitleTextView.text = Utils().stylingFormattedText(t)
 
             parentLayout.setOnClickListener{ _ ->
                 Toast.makeText(context, "Lesson <${t}> selected", Toast.LENGTH_SHORT).show()

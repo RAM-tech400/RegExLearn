@@ -1,10 +1,19 @@
 package com.ramapps.regexlearn
 
 import android.content.res.Resources
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.BackgroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
+import androidx.core.provider.FontsContractCompat.TypefaceStyle
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.StringWriter
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class Utils {
     companion object {
@@ -75,5 +84,25 @@ class Utils {
         }
 
         return titlesArrayList
+    }
+
+    fun stylingFormattedText(text: String) : CharSequence {
+        var styledText = SpannableStringBuilder(text)
+
+        val highlightPattern = Pattern.compile("`\\S+`")
+        val matcher = highlightPattern.matcher(text)
+        while (matcher.find()) {
+            styledText.setSpan(
+                BackgroundColorSpan(
+                    com.google.android.material.color.MaterialColors.harmonize(0x3300ff00.toInt(),
+                        android.R.attr.colorPrimary)),
+                matcher.start(),
+                matcher.end(),
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            styledText.delete(matcher.start(), matcher.start() + 1)
+            styledText.delete(matcher.end() - 2, matcher.end() - 1)
+        }
+
+        return styledText
     }
 }
