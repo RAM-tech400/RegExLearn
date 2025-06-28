@@ -1,8 +1,8 @@
 package com.ramapps.regexlearn
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,17 +17,14 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.updateMarginsRelative
-import androidx.core.widget.NestedScrollView
-import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.bottomsheet.BottomSheetDragHandleView
+import com.google.android.material.textfield.TextInputLayout
 
 class LearningFragment : Fragment() {
 
-    class LessonSelectionBottomSheet : BottomSheetDialogFragment() {
+    class LessonSelectionBottomSheet(val lessonSelectionListener: Listeners.LessonSelection) : BottomSheetDialogFragment() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val dialog = BottomSheetDialog(requireContext())
 
@@ -72,7 +69,7 @@ class LearningFragment : Fragment() {
             titleTextView.layoutParams = layoutParams
             layout.addView(titleTextView)
 
-            lessonsTitle.forEach { t ->
+            lessonsTitle.forEachIndexed() { i, t ->
                 val v = LayoutInflater.from(requireContext()).inflate(R.layout.item_view_lesson, null)
                 val lessonTitleTextView = v.findViewById<TextView>(R.id.item_view_lesson_text_view_title)
                 v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
@@ -80,8 +77,10 @@ class LearningFragment : Fragment() {
 
                 lessonTitleTextView.text = Utils().stylingFormattedText(t)
 
+
                 parentLayout.setOnClickListener{ _ ->
                     Toast.makeText(requireContext(), "Lesson <${t}> selected", Toast.LENGTH_SHORT).show()
+                    lessonSelectionListener.onSelect(i)
                     requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
                 }
 
@@ -100,7 +99,42 @@ class LearningFragment : Fragment() {
     }
 
     private lateinit var toolbar: Toolbar
-    private val lessonSelectionBottomSheet = LessonSelectionBottomSheet()
+    private lateinit var descriptionTextView : TextView
+    private lateinit var contentTextView : TextView
+    private lateinit var regexTextInput : TextInputLayout
+    private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection{
+        override fun onSelect(lessonId: Int) {
+            Log.v(TAG, "Lesson selection listener, Selected Lesson Id: ${lessonId}")
+
+            requireActivity()
+                .getSharedPreferences(
+                    GlobalVariables.PREFERENCES_NAME_USER_DATA,
+                    Activity.MODE_PRIVATE)
+                .edit()
+                .putInt(
+                    GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                    lessonId)
+                .apply()
+
+            loadLesson()
+        }
+    })
+
+    private fun loadLesson() {
+        val lessonId = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE).getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+        val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)
+        val localizationLessonData = Utils().getJSONObjectFromRaw(resources, R.raw.lessons_localization_data)
+        Log.d(TAG, "Selected lesson data that we should load: ${lessonDataJSON}")
+
+        toolbar.title = localizationLessonData.getString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
+        descriptionTextView.text = localizationLessonData.getString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
+        contentTextView.text = lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
+        regexTextInput.editText!!.setText(lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE))
+        regexTextInput.editText!!.setSelection(lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION))
+
+        regexTextInput.editText!!.requestFocus()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,6 +163,9 @@ class LearningFragment : Fragment() {
 
     private fun initViews(view: View) {
         toolbar = view.findViewById(R.id.learning_fragment_toolbar)
+        descriptionTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_description)
+        contentTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_content)
+        regexTextInput = view.findViewById(R.id.learning_fragment_text_input_layout_regex)
     }
 
     companion object {

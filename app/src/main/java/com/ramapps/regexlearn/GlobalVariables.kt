@@ -12,5 +12,9 @@ class GlobalVariables {
         val LESSON_JSON_KEY_ANSWER = "answer"
         val LESSON_JSON_KEY_INTERACTIVE = "interactive"
         val LESSON_JSON_KEY_CURSOR_POSITION = "cursorPosition"
+
+        val PREFERENCES_NAME_USER_DATA = "User data"
+        val PREFERENCES_USER_DATA_LAST_LESSON = "Last Lesson"
+        val PREFERENCES_USER_DATA_SELECTED_LESSON = "Current Lesson"
     }
 }
