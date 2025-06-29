@@ -177,6 +177,7 @@ class LearningFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_learning, container, false)
         initViews(view)
         addListeners()
+        loadLesson()
         return view
     }
 
