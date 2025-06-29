@@ -23,10 +23,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.edit
 
 class LearningFragment : Fragment() {
 
-    class LessonSelectionBottomSheet(val lessonSelectionListener: Listeners.LessonSelection) : BottomSheetDialogFragment() {
+    class LessonSelectionBottomSheet(private val lessonSelectionListener: Listeners.LessonSelection) : BottomSheetDialogFragment() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val dialog = BottomSheetDialog(requireContext())
 
@@ -51,17 +52,9 @@ class LearningFragment : Fragment() {
 
             scrollView.removeAllViews()
             layout.removeAllViews()
-            scrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
-                override fun onScrollChange(
-                    v: View?,
-                    scrollX: Int,
-                    scrollY: Int,
-                    oldScrollX: Int,
-                    oldScrollY: Int
-                ) {
-                    (dialog as BottomSheetDialog).behavior.isDraggable = (scrollY == 0)
-                }
-            })
+            scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                (dialog as BottomSheetDialog).behavior.isDraggable = (scrollY == 0)
+            }
 
             val titleTextView = TextView(requireContext())
             titleTextView.text = requireContext().getString(R.string.select_lesson)
@@ -71,7 +64,7 @@ class LearningFragment : Fragment() {
             titleTextView.layoutParams = layoutParams
             layout.addView(titleTextView)
 
-            lessonsTitle.forEachIndexed() { i, t ->
+            lessonsTitle.forEachIndexed { i, t ->
                 val v = LayoutInflater.from(requireContext()).inflate(R.layout.item_view_lesson, null)
                 val lessonTitleTextView = v.findViewById<TextView>(R.id.item_view_lesson_text_view_title)
                 val stateImageView = v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
@@ -125,24 +118,25 @@ class LearningFragment : Fragment() {
     private lateinit var previousLessonButton : Button
     private lateinit var nextLessonButton: Button
 
-    var initialFlags = ""
-    var flags = ""
-    var aswareRegex = ""
-    var answar = ArrayList<String>()
+    private var initialFlags = ""
+    private var flags = ""
+    private var answerRegex = ""
+    private var answer = ArrayList<String>()
 
     private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection{
         override fun onSelect(lessonId: Int) {
-            Log.v(TAG, "Lesson selection listener, Selected Lesson Id: ${lessonId}")
+            Log.v(TAG, "Lesson selection listener, Selected Lesson Id: $lessonId")
 
             requireActivity()
                 .getSharedPreferences(
                     GlobalVariables.PREFERENCES_NAME_USER_DATA,
                     Activity.MODE_PRIVATE)
-                .edit()
-                .putInt(
-                    GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
-                    lessonId)
-                .apply()
+                .edit {
+                    putInt(
+                        GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                        lessonId
+                    )
+                }
 
             loadLesson()
         }
@@ -153,28 +147,25 @@ class LearningFragment : Fragment() {
         val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)
         val localizationLessonData = Utils().getJSONObjectFromRaw(resources, R.raw.lessons_localization_data)
 
-        Log.d(TAG, "Selected lesson data that we should load: ${lessonDataJSON}")
+        Log.d(TAG, "Selected lesson data that we should load: $lessonDataJSON")
 
         val lastOpenedLessonId = requireActivity().getSharedPreferences(
             GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
             .getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
 
-        if ((lessonId + 1) > lastOpenedLessonId) {
-            nextLessonButton.isEnabled = false
-        } else {
-            nextLessonButton.isEnabled = true
-        }
+        nextLessonButton.isEnabled = (lessonId + 1) <= lastOpenedLessonId
 
         if (lessonId > lastOpenedLessonId) {
             requireActivity().getSharedPreferences(
                 GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
-                .edit().putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, lessonId)
-                .apply()
+                .edit {
+                    putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, lessonId)
+                }
         }
 
         initialFlags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_FLAGS)
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
-        aswareRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
+        answerRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
 
         val title = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
         val description = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
@@ -195,11 +186,13 @@ class LearningFragment : Fragment() {
             contentTextView.visibility = View.VISIBLE
             contentTextView.text = content
 
-            for (i in 0..<lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
-                .length()) {
-                answar.add(
-                    lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).getString(i)
-                )
+            for (i in 0..<(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
+                ?.length() ?: 0)) {
+                lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)?.let {
+                    answer.add(
+                        it.getString(i)
+                    )
+                }
             }
         } else {
             regexTextInput.isEnabled = false
@@ -234,7 +227,7 @@ class LearningFragment : Fragment() {
             }
         })
 
-        previousLessonButton.setOnClickListener{v ->
+        previousLessonButton.setOnClickListener{
             val selectedLessonId = requireActivity().getSharedPreferences(
                 GlobalVariables.PREFERENCES_NAME_USER_DATA,
                 Activity.MODE_PRIVATE)
@@ -246,17 +239,18 @@ class LearningFragment : Fragment() {
                     .getSharedPreferences(
                         GlobalVariables.PREFERENCES_NAME_USER_DATA,
                         Activity.MODE_PRIVATE)
-                    .edit()
-                    .putInt(
-                        GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
-                        selectedLessonId - 1)
-                    .apply()
+                    .edit {
+                        putInt(
+                            GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                            selectedLessonId - 1
+                        )
+                    }
 
                 loadLesson()
             }
         }
 
-        nextLessonButton.setOnClickListener{v ->
+        nextLessonButton.setOnClickListener{
             val selectedLessonId = requireActivity().getSharedPreferences(
                 GlobalVariables.PREFERENCES_NAME_USER_DATA,
                 Activity.MODE_PRIVATE)
@@ -268,11 +262,12 @@ class LearningFragment : Fragment() {
                     .getSharedPreferences(
                         GlobalVariables.PREFERENCES_NAME_USER_DATA,
                         Activity.MODE_PRIVATE)
-                    .edit()
-                    .putInt(
-                        GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
-                        selectedLessonId + 1)
-                    .apply()
+                    .edit {
+                        putInt(
+                            GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
+                            selectedLessonId + 1
+                        )
+                    }
 
                 loadLesson()
             }
