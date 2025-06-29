@@ -3,6 +3,7 @@ package com.ramapps.regexlearn
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,13 +15,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.updateMarginsRelative
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 
 class LearningFragment : Fragment() {
@@ -73,10 +74,29 @@ class LearningFragment : Fragment() {
             lessonsTitle.forEachIndexed() { i, t ->
                 val v = LayoutInflater.from(requireContext()).inflate(R.layout.item_view_lesson, null)
                 val lessonTitleTextView = v.findViewById<TextView>(R.id.item_view_lesson_text_view_title)
-                v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
+                val stateImageView = v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
                 val parentLayout = v.findViewById<LinearLayout>(R.id.item_view_lesson_parent)
 
                 lessonTitleTextView.text = Utils().stylingFormattedText(t)
+
+                val lastOpenedLessonId = requireActivity().getSharedPreferences(
+                    GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
+                    .getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+
+                if (i < lastOpenedLessonId) {
+                    val harmonizedColorForDone = MaterialColors.harmonize((0xff00ff00).toInt(), android.R.attr.textColorPrimary)
+                    stateImageView.setImageResource(R.drawable.outline_done_outline_24)
+                    stateImageView.imageTintList = ColorStateList(
+                        arrayOf(intArrayOf(android.R.attr.state_enabled)),
+                        intArrayOf(harmonizedColorForDone))
+                    lessonTitleTextView.setTextColor(harmonizedColorForDone)
+                }
+
+                if (i > lastOpenedLessonId) {
+                    parentLayout.isEnabled = false
+                    parentLayout.alpha = 0.5f
+                    stateImageView.setImageResource(R.drawable.outline_lock_24)
+                }
 
 
                 parentLayout.setOnClickListener{ _ ->
@@ -135,12 +155,26 @@ class LearningFragment : Fragment() {
 
         Log.d(TAG, "Selected lesson data that we should load: ${lessonDataJSON}")
 
+        val lastOpenedLessonId = requireActivity().getSharedPreferences(
+            GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
+            .getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+
+        if ((lessonId + 1) > lastOpenedLessonId) {
+            nextLessonButton.isEnabled = false
+        } else {
+            nextLessonButton.isEnabled = true
+        }
+
+        if (lessonId > lastOpenedLessonId) {
+            requireActivity().getSharedPreferences(
+                GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
+                .edit().putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, lessonId)
+                .apply()
+        }
+
         initialFlags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_FLAGS)
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
         aswareRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
-        for (i in 0..< lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).length()) {
-            answar.add(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).getString(i))
-        }
 
         val title = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
         val description = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
@@ -153,19 +187,24 @@ class LearningFragment : Fragment() {
         descriptionTextView.text = description
         regexTextInput.editText!!.setText(initialValue)
 
-        if (content.isNotEmpty()) {
-            contentTextView.visibility = View.VISIBLE
-            contentTextView.text = content
-        } else {
-            contentTextView.visibility = View.INVISIBLE
-        }
-
         if (interactive) {
-            regexTextInput.isEnabled = false
-        } else {
             regexTextInput.isEnabled = true
             regexTextInput.editText!!.setSelection(cursorPosition)
             regexTextInput.editText!!.requestFocus()
+
+            contentTextView.visibility = View.VISIBLE
+            contentTextView.text = content
+
+            for (i in 0..<lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
+                .length()) {
+                answar.add(
+                    lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).getString(i)
+                )
+            }
+        } else {
+            regexTextInput.isEnabled = false
+
+            contentTextView.visibility = View.INVISIBLE
         }
 
     }
