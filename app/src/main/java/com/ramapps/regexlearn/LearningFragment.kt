@@ -80,7 +80,6 @@ class LearningFragment : Fragment() {
 
 
                 parentLayout.setOnClickListener{ _ ->
-                    Toast.makeText(requireContext(), "Lesson <${t}> selected", Toast.LENGTH_SHORT).show()
                     lessonSelectionListener.onSelect(i)
                     requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
                 }
@@ -105,6 +104,12 @@ class LearningFragment : Fragment() {
     private lateinit var regexTextInput : TextInputLayout
     private lateinit var previousLessonButton : Button
     private lateinit var nextLessonButton: Button
+
+    var initialFlags = ""
+    var flags = ""
+    var aswareRegex = ""
+    var answar = ArrayList<String>()
+
     private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection{
         override fun onSelect(lessonId: Int) {
             Log.v(TAG, "Lesson selection listener, Selected Lesson Id: ${lessonId}")
@@ -127,15 +132,41 @@ class LearningFragment : Fragment() {
         val lessonId = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE).getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
         val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)
         val localizationLessonData = Utils().getJSONObjectFromRaw(resources, R.raw.lessons_localization_data)
+
         Log.d(TAG, "Selected lesson data that we should load: ${lessonDataJSON}")
 
-        toolbar.title = localizationLessonData.getString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
-        descriptionTextView.text = localizationLessonData.getString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
-        contentTextView.text = lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
-        regexTextInput.editText!!.setText(lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE))
-        regexTextInput.editText!!.setSelection(lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION))
+        initialFlags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_FLAGS)
+        flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
+        aswareRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
+        for (i in 0..< lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).length()) {
+            answar.add(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER).getString(i))
+        }
 
-        regexTextInput.editText!!.requestFocus()
+        val title = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
+        val description = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
+        val content = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
+        val initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
+        val cursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
+        val interactive = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE)
+
+        toolbar.title = title
+        descriptionTextView.text = description
+        regexTextInput.editText!!.setText(initialValue)
+
+        if (content.isNotEmpty()) {
+            contentTextView.visibility = View.VISIBLE
+            contentTextView.text = content
+        } else {
+            contentTextView.visibility = View.INVISIBLE
+        }
+
+        if (interactive) {
+            regexTextInput.isEnabled = false
+        } else {
+            regexTextInput.isEnabled = true
+            regexTextInput.editText!!.setSelection(cursorPosition)
+            regexTextInput.editText!!.requestFocus()
+        }
 
     }
 
