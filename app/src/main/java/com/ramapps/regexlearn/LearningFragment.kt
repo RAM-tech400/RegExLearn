@@ -5,6 +5,9 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -15,6 +18,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.updateMarginsRelative
@@ -281,6 +285,22 @@ class LearningFragment : Fragment() {
                 loadLesson()
             }
         }
+
+        regexTextInput.editText!!.addTextChangedListener(object : TextWatcher{
+            val handler = Handler()
+            val codeAfterTextEditedRunnable = Runnable {
+                val regexText = regexTextInput.editText!!.text.toString()
+                Log.d(TAG, "Regex input text changed to $regexText")
+                // TODO: Should apply regex on lesson content and check answers
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                handler.removeCallbacks(codeAfterTextEditedRunnable)
+                handler.postDelayed(codeAfterTextEditedRunnable, 500)
+            }
+        })
     }
 
     private fun initViews(view: View) {
