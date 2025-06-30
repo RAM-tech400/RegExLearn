@@ -172,11 +172,19 @@ class LearningFragment : Fragment() {
         val content = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
         val initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
         val cursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
-        val interactive = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE)
+        val interactive = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
+        val readOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
 
         toolbar.title = title
         descriptionTextView.text = description
         regexTextInput.editText!!.setText(initialValue)
+
+        if (readOnly) {
+            regexTextInput.isEnabled = false
+            nextLessonButton.isEnabled = true
+        } else {
+            regexTextInput.isEnabled = true
+        }
 
         if (interactive) {
             regexTextInput.isEnabled = true
@@ -196,6 +204,7 @@ class LearningFragment : Fragment() {
             }
         } else {
             regexTextInput.isEnabled = false
+            nextLessonButton.isEnabled = true
 
             contentTextView.visibility = View.INVISIBLE
         }

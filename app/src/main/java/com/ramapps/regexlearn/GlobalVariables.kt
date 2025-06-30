@@ -6,6 +6,7 @@ class GlobalVariables {
         val LESSON_JSON_KEY_DESCRIPTION = "description"
         val LESSON_JSON_KEY_CONTENT = "content"
         val LESSON_JSON_KEY_INITIAL_FLAGS = "initialFlags"
+        val LESSON_JSON_KEY_INITIAL_READ_ONLY = "readOnly"
         val LESSON_JSON_KEY_FLAGS = "flags"
         val LESSON_JSON_KEY_REGEX = "regex"
         val LESSON_JSON_KEY_INITIAL_VALUE = "initialValue"
