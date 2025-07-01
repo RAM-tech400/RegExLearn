@@ -1,6 +1,7 @@
 package com.ramapps.regexlearn
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,21 @@ class PlaygroundFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_playground, container, false)
+        val view = inflater.inflate(R.layout.fragment_playground, container, false)
+        initializeViews(view)
+        addListeners()
+        return view
+    }
+
+    fun addListeners() {
+        // TODO: Adding necessary component listeners here.
+    }
+
+    private fun initializeViews(view: View) {
+        previewTextInput = view.findViewById(R.id.playground_fragment_text_input_preview)
+        runFloatingActionButton = view.findViewById(R.id.playground_fragment_fab_run)
+        flagsChipGroup = view.findViewById(R.id.playground_fragment_chip_group)
+        regexPatternInputsLinearLayout = view.findViewById(R.id.playground_fragment_linear_layout_regex_fields)
     }
 
     companion object {
