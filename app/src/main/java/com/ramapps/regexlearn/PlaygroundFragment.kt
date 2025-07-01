@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class PlaygroundFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
+    private lateinit var previewTextInput : TextView
+    private lateinit var runFloatingActionButton : FloatingActionButton
+    private lateinit var flagsChipGroup: ChipGroup
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,5 +25,7 @@ class PlaygroundFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = PlaygroundFragment()
+
+        const val TAG = "PlaygroundFragment"
     }
 }
