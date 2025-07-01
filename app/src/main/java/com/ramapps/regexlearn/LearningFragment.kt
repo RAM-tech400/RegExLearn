@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.style.BackgroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -28,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 import androidx.core.content.edit
+import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
 
@@ -126,6 +128,7 @@ class LearningFragment : Fragment() {
     private var flags = ""
     private var answerRegex = ""
     private var answer = ArrayList<String>()
+    private var contentText = ""
 
     private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection{
         override fun onSelect(lessonId: Int) {
@@ -197,6 +200,7 @@ class LearningFragment : Fragment() {
 
             contentTextView.visibility = View.VISIBLE
             contentTextView.text = content
+            contentText = content
 
             for (i in 0..<(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
                 ?.length() ?: 0)) {
@@ -289,9 +293,15 @@ class LearningFragment : Fragment() {
         regexTextInput.editText!!.addTextChangedListener(object : TextWatcher{
             val handler = Handler()
             val codeAfterTextEditedRunnable = Runnable {
+                regexTextInput.error = ""
                 val regexText = regexTextInput.editText!!.text.toString()
                 Log.d(TAG, "Regex input text changed to $regexText")
-                // TODO: Should apply regex on lesson content and check answers
+                try{
+                    contentTextView.text = RegexUtils().applyStyleToString(Regex(regexText), flags, contentText)
+                } catch (e : PatternSyntaxException) {
+                    Log.e(TAG, "Wrong regex pattern! Error details: $e")
+                    regexTextInput.error = "Wrong regex pattern!"
+                }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
