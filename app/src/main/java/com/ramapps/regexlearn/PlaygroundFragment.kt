@@ -10,13 +10,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputLayout
 
 class PlaygroundFragment : Fragment() {
 
-    private lateinit var previewTextInput : TextView
+    private lateinit var previewTextInput : TextInputLayout
     private lateinit var runFloatingActionButton : FloatingActionButton
     private lateinit var flagsChipGroup: ChipGroup
-    private lateinit var regexPatternInputsLinearLayout : LinearLayout
+    private lateinit var regexPatternInput : TextInputLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,7 @@ class PlaygroundFragment : Fragment() {
         previewTextInput = view.findViewById(R.id.playground_fragment_text_input_preview)
         runFloatingActionButton = view.findViewById(R.id.playground_fragment_fab_run)
         flagsChipGroup = view.findViewById(R.id.playground_fragment_chip_group)
-        regexPatternInputsLinearLayout = view.findViewById(R.id.playground_fragment_linear_layout_regex_fields)
+        regexPatternInput = view.findViewById(R.id.playground_fragment_text_input_layout_regex)
     }
 
     companion object {
