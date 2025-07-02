@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.chip.ChipGroup.OnCheckedStateChangeListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 
@@ -39,6 +40,19 @@ class PlaygroundFragment : Fragment() {
                 Log.w(TAG, "Text fields check returned failure. Please enter required inputs correctly")
             }
         }
+
+        flagsChipGroup.setOnCheckedStateChangeListener(object : OnCheckedStateChangeListener{
+            override fun onCheckedChanged(group: ChipGroup, checkedIds: MutableList<Int>) {
+                userSelectedFlags = ""
+                checkedIds.forEach{id ->
+                    when (id) {
+                        R.id.playground_fragment_chip_global -> userSelectedFlags += "g"
+                        R.id.playground_fragment_chip_multiline -> userSelectedFlags += "m"
+                        R.id.playground_fragment_chip_ignore_case -> userSelectedFlags += "i"
+                    }
+                }
+            }
+        })
     }
 
     private fun checkTextFields(): Boolean {

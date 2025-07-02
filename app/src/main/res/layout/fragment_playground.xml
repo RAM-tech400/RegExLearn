@@ -74,6 +74,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/playground_fragment_chip_global"
                             android:text="Global"
                             android:checkable="true"
                             app:chipIcon="@drawable/g_mobiledata_24px"/>
@@ -81,6 +82,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/playground_fragment_chip_multiline"
                             android:text="Multiline"
                             android:checkable="true"
                             app:chipIcon="@drawable/metro_24px" />
@@ -88,6 +90,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/playground_fragment_chip_ignore_case"
                             android:text="Ignore Case"
                             android:checkable="true"
                             app:chipIcon="@drawable/info_i_24px"/>
