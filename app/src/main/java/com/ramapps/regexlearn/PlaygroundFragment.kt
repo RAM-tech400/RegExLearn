@@ -19,6 +19,8 @@ class PlaygroundFragment : Fragment() {
     private lateinit var flagsChipGroup: ChipGroup
     private lateinit var regexPatternInput : TextInputLayout
 
+    private var userSelectedFlags = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,7 +59,10 @@ class PlaygroundFragment : Fragment() {
     }
 
     private fun applyRegexOnPreview() {
-        // TODO: Implement later.
+        previewTextInput.editText!!.setText(RegexUtils().applyStyleToString(
+            Regex(regexPatternInput.editText!!.text.toString()),
+            userSelectedFlags,
+            previewTextInput.editText!!.text.toString()))
     }
 
     private fun initializeViews(view: View) {
