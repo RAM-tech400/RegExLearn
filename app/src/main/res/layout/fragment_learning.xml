@@ -69,12 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/regular_expression_24px"
-                    android:background="@drawable/regex_text_input_background"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                     android:textAlignment="center"
-                    android:fontFamily="@font/monospace_font"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:drawableTint="?attr/colorOnPrimaryFixedVariant"/>
+                    style="@style/Theme.RegExLearn.RegexInputEditText"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
