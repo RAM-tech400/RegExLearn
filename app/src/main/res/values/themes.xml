@@ -7,12 +7,14 @@
 
     <style name="Theme.RegExLearn" parent="Base.Theme.RegExLearn" />
 
-    <style name="Theme.RegExLearn.RegexInputEditText" parent="Widget.Material3.TextInputLayout.FilledBox">
+    <style name="Theme.RegExLearn.RegexInputEditText">
         <item name="android:background">@drawable/regex_text_input_background</item>
         <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
         <item name="android:fontFamily">@font/monospace_font</item>
         <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
-        <item name="drawableTint">?attr/colorOnPrimaryFixedVariant</item>
+        <item name="drawableTint">?attr/colorPrimaryVariant</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionDone</item>
     </style>
 
 </resources>
