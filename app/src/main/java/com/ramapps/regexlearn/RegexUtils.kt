@@ -20,7 +20,7 @@ class RegexUtils {
         val highlightColor = MaterialColors.harmonize(0xff00ff00.toInt(), android.R.attr.colorBackground)
 
         while (matcher.find()) {
-            styledString.setSpan(RoundedBackgroundSpan(highlightColor), matcher.start(), matcher.end(), SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+            styledString.setSpan(RoundedBackgroundSpan(highlightColor, backgroundAlpha = 128), matcher.start(), matcher.end(), SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
         }
 
         return styledString
