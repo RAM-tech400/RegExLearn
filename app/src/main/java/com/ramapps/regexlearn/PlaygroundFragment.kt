@@ -30,7 +30,22 @@ class PlaygroundFragment : Fragment() {
     }
 
     fun addListeners() {
-        // TODO: Adding necessary component listeners here.
+        runFloatingActionButton.setOnClickListener{
+            if (checkTextFields()) {
+                applyRegexOnPreview()
+            } else {
+                Log.w(TAG, "Text fields check returned failure. Please enter required inputs correctly")
+            }
+        }
+    }
+
+    private fun checkTextFields(): Boolean {
+        // TODO: Implement later.
+        return true
+    }
+
+    private fun applyRegexOnPreview() {
+        // TODO: Implement later.
     }
 
     private fun initializeViews(view: View) {
