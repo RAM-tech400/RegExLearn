@@ -1,9 +1,7 @@
 package com.ramapps.regexlearn
 
-import android.graphics.Color
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.BackgroundColorSpan
 import android.util.Log
 import com.google.android.material.color.MaterialColors
 import java.util.regex.Pattern
@@ -22,7 +20,7 @@ class RegexUtils {
         val highlightColor = MaterialColors.harmonize(0xff00ff00.toInt(), android.R.attr.colorBackground)
 
         while (matcher.find()) {
-            styledString.setSpan(BackgroundColorSpan(highlightColor), matcher.start(), matcher.end(), SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+            styledString.setSpan(RoundedBackgroundSpan(highlightColor), matcher.start(), matcher.end(), SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
         }
 
         return styledString
