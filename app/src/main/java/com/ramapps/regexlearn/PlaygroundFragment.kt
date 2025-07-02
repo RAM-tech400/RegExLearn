@@ -40,7 +40,19 @@ class PlaygroundFragment : Fragment() {
     }
 
     private fun checkTextFields(): Boolean {
-        // TODO: Implement later.
+        previewTextInput.error = ""
+        regexPatternInput.error = ""
+
+        if (previewTextInput.editText!!.text.trim().isEmpty()) {
+            previewTextInput.error = getString(R.string.message_empty_field_error)
+            return false
+        }
+
+        if (regexPatternInput.editText?.text!!.trim().isEmpty()) {
+            regexPatternInput.error = getString(R.string.message_empty_field_error)
+            return false
+        }
+
         return true
     }
 
