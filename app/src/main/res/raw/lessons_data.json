@@ -54,7 +54,7 @@
     "regex": [
       "."
     ],
-    "answer": "abcABC123 .:!?\".split(\"\")"
+    "answer": ["a", "b", "c", "A", "B", "C", "1", "2", "3", " ", ".", ":", "!", "?"]
   },
   {
     "title": "steps.characterSet.title",
@@ -172,7 +172,7 @@
     "regex": [
       "."
     ],
-    "answer": "az AZ 09 _- = !? ., :;\".split(\"\")"
+    "answer": ["a", "z", " ", "A", "Z", " ", "0", "9", " ", "_", "-", " ", "=", " ", "!", "?", " ", ".", ",", " ", ":", ";"]
   },
   {
     "title": "examples.characterSet.title",
@@ -235,7 +235,6 @@
     "regex": [
       "[2-7]"
     ],
-    "cursorPosition": 1,
     "answer": [
       "2",
       "3",
@@ -879,7 +878,6 @@
     "flags": "",
     "cursorPosition": 2,
     "answer": [
-      "ber",
       "ber"
     ]
   },
