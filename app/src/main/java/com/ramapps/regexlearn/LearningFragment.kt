@@ -205,6 +205,8 @@ class LearningFragment : Fragment() {
             regexTextInput.isEnabled = true
         }
 
+        answer.clear()
+
         if (interactive) {
             regexTextInput.isEnabled = true
             regexTextInput.editText!!.setSelection(cursorPosition)
