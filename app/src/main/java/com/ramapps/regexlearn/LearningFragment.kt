@@ -29,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 import androidx.core.content.edit
+import androidx.core.text.toSpanned
 import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
@@ -182,6 +183,17 @@ class LearningFragment : Fragment() {
         val interactive = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
         val readOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
 
+        Log.d(TAG, "Detected initialFlags: $initialFlags")
+        Log.d(TAG, "Detected flags: $flags")
+        Log.d(TAG, "Detected answerRegex: $answerRegex")
+        Log.d(TAG, "Detected title: $title")
+        Log.d(TAG, "Detected description: $description")
+        Log.d(TAG, "Detected content: $content")
+        Log.d(TAG, "Detected initialValue: $initialValue")
+        Log.d(TAG, "Detected cursorPosition: $cursorPosition")
+        Log.d(TAG, "Detected interactive: $interactive")
+        Log.d(TAG, "Detected readOnly: $readOnly")
+
         toolbar.title = title
         descriptionTextView.text = description
         regexTextInput.editText!!.setText(initialValue)
@@ -205,6 +217,7 @@ class LearningFragment : Fragment() {
             for (i in 0..<(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
                 ?.length() ?: 0)) {
                 lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)?.let {
+                    Log.d(TAG, "Detected answers: $it")
                     answer.add(
                         it.getString(i)
                     )
@@ -216,7 +229,6 @@ class LearningFragment : Fragment() {
 
             contentTextView.visibility = View.INVISIBLE
         }
-
     }
 
     override fun onCreateView(
@@ -298,6 +310,13 @@ class LearningFragment : Fragment() {
                 Log.d(TAG, "Regex input text changed to $regexText")
                 try{
                     contentTextView.text = RegexUtils().applyStyleToString(Regex(regexText), flags, contentText)
+                    Log.v(TAG, "ContentTextView text has been set to: ${contentTextView.text}")
+                    if (checkAnswer()) {
+                        Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
+                        nextLessonButton.isEnabled = true
+                    } else {
+                        Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
+                    }
                 } catch (e : PatternSyntaxException) {
                     Log.e(TAG, "Wrong regex pattern! Error details: $e")
                     regexTextInput.error = "Wrong regex pattern!"
@@ -311,6 +330,31 @@ class LearningFragment : Fragment() {
                 handler.postDelayed(codeAfterTextEditedRunnable, 500)
             }
         })
+    }
+
+    private fun checkAnswer(): Boolean {
+        Log.v(TAG, "checkAnswer()")
+
+        var ans = ""
+        answer.forEach{a -> ans += "$a, " }
+        Log.d(TAG, "Answers items: $ans")
+
+        val text = contentTextView.text.toSpanned()
+        Log.d(TAG, "contentTextView text is: $text")
+
+        val spans = text.toSpanned().getSpans(0, text.length, RoundedBackgroundSpan::class.java)
+        Log.d(TAG, "contentTextView has ${spans.size} RoundedBackgroundSpan spans.")
+
+        Log.d(TAG, "Checking the count of spans with answers...")
+        if (spans.size != answer.size) return false
+
+        spans.forEach{s ->
+            val spanText = text.substring(text.getSpanStart(s), text.getSpanEnd(s))
+            Log.d(TAG, "Checking if span($spanText) exist in answer($ans)...")
+            if (!answer.contains(spanText)) return false
+        }
+
+        return true
     }
 
     private fun initViews(view: View) {
