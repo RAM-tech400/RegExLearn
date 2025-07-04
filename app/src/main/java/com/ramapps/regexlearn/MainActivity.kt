@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container_view, SettingsFragment.newInstance())
                             .commit()
-                        Toast.makeText(applicationContext, "Implement soon...", Toast.LENGTH_SHORT).show()
                         return true
                     }
                 }
