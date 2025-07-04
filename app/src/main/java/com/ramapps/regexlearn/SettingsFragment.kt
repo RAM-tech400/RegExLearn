@@ -2,6 +2,8 @@ package com.ramapps.regexlearn
 
 import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -72,7 +74,10 @@ class SettingsFragment : Fragment() {
         }
 
         contactMeSettingsItemCardView.setOnClickListener{
-            // Todo: Implement later.
+            val uri = Uri.fromParts("mailto", "deputy-wolf-roster@duck.com", null)
+            val prepareEmailCompose = Intent(Intent.ACTION_VIEW)
+            prepareEmailCompose.data = uri
+            startActivity(prepareEmailCompose)
         }
 
         aboutAppSettingsItemCardView.setOnClickListener{
