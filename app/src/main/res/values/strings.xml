@@ -10,7 +10,6 @@
     <string name="select_lesson">Select lesson</string>
     <string name="add_regex_input">Add RegEx Input</string>
     <string name="remove_last_regex_input">Remove Last RegEx Input</string>
-    <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="regex_input_hint">Enter regex pattern...</string>
     <string name="message_empty_field_error">Please fill this input.</string>
@@ -31,4 +30,5 @@
     <string name="georgian" translatable="false">ქართული</string>
     <string name="korean" translatable="false">한국인</string>
     <string name="russia" translatable="false">Русский</string>
+    <string name="previous">Previous</string>
 </resources>

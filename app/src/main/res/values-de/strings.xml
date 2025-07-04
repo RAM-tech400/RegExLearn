@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reguläre Ausdrücke lernen</string>
+    <string name="home">Heim</string>
+    <string name="learning">Lernen</string>
+    <string name="playground">Spielplatz</string>
+    <string name="settings">Einstellungen</string>
+    <string name="message_home_fragment_future_content">Auf dieser Seite werden einige Inhalte zur Zukunft von RegEx angezeigt!</string>
+    <string name="select_lesson">Lektion auswählen</string>
+    <string name="add_regex_input">RegEx-Eingabe hinzufügen</string>
+    <string name="remove_last_regex_input">Letzte RegEx-Eingabe entfernen</string>
+    <string name="previous">Vorherige</string>
+    <string name="next">Nächste</string>
+    <string name="regex_input_hint">Geben Sie das Regex-Muster ein ...</string>
+    <string name="message_empty_field_error">Bitte füllen Sie diese Eingabe aus.</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="language">Sprache</string>
+    <string name="language">Sprache</string>
+    <string name="dark_mode">Dunkelmodus</string>
+    <string name="dark_mode">Dunkelmodus</string>
+    <string name="contact_me">Kontaktieren Sie mich</string>
+    <string name="contact_me">Kontaktieren Sie mich</string>
+    <string name="about_app">Über die App</string>
+    <string name="about_app">Über die App</string>
+    <string name="off">AUS</string>
+    <string name="on">AN</string>
+</resources>
