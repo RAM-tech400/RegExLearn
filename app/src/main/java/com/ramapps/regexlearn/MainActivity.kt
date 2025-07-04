@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.menu_item_settings -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container_view, HomeFragment.newInstance())
+                            .replace(R.id.main_fragment_container_view, SettingsFragment.newInstance())
                             .commit()
                         Toast.makeText(applicationContext, "Implement soon...", Toast.LENGTH_SHORT).show()
                         return true
