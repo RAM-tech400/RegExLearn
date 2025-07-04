@@ -85,24 +85,4 @@ class Utils {
 
         return titlesArrayList
     }
-
-    fun stylingFormattedText(text: String) : CharSequence {
-        var styledText = SpannableStringBuilder(text)
-
-        val highlightPattern = Pattern.compile("`\\S+`")
-        val matcher = highlightPattern.matcher(text)
-        while (matcher.find()) {
-            styledText.setSpan(
-                BackgroundColorSpan(
-                    com.google.android.material.color.MaterialColors.harmonize(0x3300ff00.toInt(),
-                        android.R.attr.colorPrimary)),
-                matcher.start(),
-                matcher.end(),
-                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
-            styledText.delete(matcher.start(), matcher.start() + 1)
-            styledText.delete(matcher.end() - 2, matcher.end() - 1)
-        }
-
-        return styledText
-    }
 }

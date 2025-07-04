@@ -11,6 +11,29 @@ class RegexUtils {
         const val TAG = "RegexUtils"
     }
 
+    fun formatText(text: String, highlightColor: Int, highlightAlpha: Int = 16, formatMarker: String) : CharSequence {
+        Log.v(TAG, "formatText($text, $highlightColor, $formatMarker)")
+
+        val pattern = Pattern.compile("$formatMarker.*?$formatMarker", Pattern.MULTILINE)
+        val matcher = pattern.matcher(text)
+        val spanBuilder = SpannableStringBuilder()
+
+        var pointer = 0
+        while (matcher.find()) {
+            spanBuilder.append(text.substring(pointer, matcher.start()))
+            val formatText = text.substring(matcher.start() + formatMarker.length, matcher.end() - formatMarker.length)
+            Log.d(TAG, "Format text: $formatText")
+            val spannableString = SpannableString(formatText)
+            spannableString.setSpan(RoundedBackgroundSpan(highlightColor, backgroundAlpha = highlightAlpha), 0, formatText.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spanBuilder.append(spannableString)
+            pointer = matcher.end()
+        }
+
+        spanBuilder.append(text.substring(pointer, text.length))
+
+        return spanBuilder
+    }
+
 
     fun applyStyleToString(regex: Regex, flags: String = "", text: String) : CharSequence {
         Log.v(TAG, "applyStyleToString($regex, $flags, ${text})")

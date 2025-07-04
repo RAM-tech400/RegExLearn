@@ -30,6 +30,8 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 import androidx.core.content.edit
 import androidx.core.text.toSpanned
+import com.google.android.material.color.MaterialColorUtilitiesHelper
+import com.google.android.material.color.utilities.MaterialDynamicColors
 import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
@@ -77,7 +79,7 @@ class LearningFragment : Fragment() {
                 val stateImageView = v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
                 val parentLayout = v.findViewById<LinearLayout>(R.id.item_view_lesson_parent)
 
-                lessonTitleTextView.text = Utils().stylingFormattedText(t)
+                lessonTitleTextView.text = RegexUtils().formatText(t, android.R.attr.colorActivatedHighlight, formatMarker = "`")
 
                 val lastOpenedLessonId = requireActivity().getSharedPreferences(
                     GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
@@ -194,8 +196,9 @@ class LearningFragment : Fragment() {
         Log.d(TAG, "Detected interactive: $interactive")
         Log.d(TAG, "Detected readOnly: $readOnly")
 
-        toolbar.title = title
-        descriptionTextView.text = description
+        toolbar.title = RegexUtils().formatText(title, android.R.attr.colorActivatedHighlight, formatMarker = "`")
+        descriptionTextView.text = RegexUtils().formatText(description, android.R.attr.colorActivatedHighlight, formatMarker = "`")
+
         regexTextInput.editText!!.setText(initialValue)
 
         if (readOnly) {
