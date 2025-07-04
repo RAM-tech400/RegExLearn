@@ -14,14 +14,9 @@
     <string name="regex_input_hint">Geben Sie das Regex-Muster ein ...</string>
     <string name="message_empty_field_error">Bitte füllen Sie diese Eingabe aus.</string>
     <string name="system_default">Systemstandard</string>
-    <string name="system_default">Systemstandard</string>
-    <string name="language">Sprache</string>
     <string name="language">Sprache</string>
     <string name="dark_mode">Dunkelmodus</string>
-    <string name="dark_mode">Dunkelmodus</string>
     <string name="contact_me">Kontaktieren Sie mich</string>
-    <string name="contact_me">Kontaktieren Sie mich</string>
-    <string name="about_app">Über die App</string>
     <string name="about_app">Über die App</string>
     <string name="off">AUS</string>
     <string name="on">AN</string>
