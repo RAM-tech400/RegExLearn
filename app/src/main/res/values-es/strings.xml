@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aprender expresiones regulares</string>
+    <string name="home">Hogar</string>
+    <string name="home">Hogar</string>
+    <string name="learning">Aprendiendo</string>
+    <string name="playground">Patio de juegos</string>
+    <string name="settings">Ajustes</string>
+    <string name="message_home_fragment_future_content">¡Esta página mostrará algo de contenido sobre el futuro de RegEx!</string>
+    <string name="select_lesson">Seleccionar lección</string>
+    <string name="add_regex_input">Agregar entrada RegEx</string>
+    <string name="remove_last_regex_input">Eliminar la última entrada de expresión regular</string>
+    <string name="remove_last_regex_input">Eliminar la última entrada de expresión regular</string>
+    <string name="previous">Previa</string>
+    <string name="next">Próxima</string>
+    <string name="regex_input_hint">Introduzca el patrón de expresión regular...</string>
+    <string name="regex_input_hint">Introduzca el patrón de expresión regular...</string>
+    <string name="message_empty_field_error">Please fill this input.</string>
+    <string name="message_empty_field_error">Please fill this input.</string>
+    <string name="system_default">Valor predeterminado del sistema</string>
+    <string name="language">Idioma</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="contact_me">Contáctame</string>
+    <string name="contact_me">Contáctame</string>
+    <string name="about_app">Acerca de la aplicación</string>
+    <string name="about_app">Acerca de la aplicación</string>
+    <string name="off">APAGADO</string>
+    <string name="off">APAGADO</string>
+    <string name="on">EN</string>
+</resources>
