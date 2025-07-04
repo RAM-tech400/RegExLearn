@@ -17,5 +17,9 @@ class GlobalVariables {
         val PREFERENCES_NAME_USER_DATA = "User data"
         val PREFERENCES_USER_DATA_LAST_LESSON = "Last Lesson"
         val PREFERENCES_USER_DATA_SELECTED_LESSON = "Current Lesson"
+
+        val PREFERENCES_NAME_SETTINGS = "Settings"
+        val PREFERENCES_SETTINGS_LANGUAGE = "Language"
+        val PREFERENCES_SETTINGS_DARK_MODE = "Dark mode"
     }
 }
