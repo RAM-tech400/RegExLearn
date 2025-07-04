@@ -14,4 +14,9 @@
     <string name="next">Next</string>
     <string name="regex_input_hint">Enter regex pattern...</string>
     <string name="message_empty_field_error">Please fill this input.</string>
+    <string name="system_default">System default</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="contact_me">Contact me</string>
+    <string name="about_app">About app</string>
 </resources>
