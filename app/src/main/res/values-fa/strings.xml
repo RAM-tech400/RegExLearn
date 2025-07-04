@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">یادگیری عبارات منظم</string>
+    <string name="home">خانه</string>
+    <string name="learning">یادگیری</string>
+    <string name="playground">زمین تمرین</string>
+    <string name="settings">تنظیمات</string>
+    <string name="message_home_fragment_future_content">این صفحه در آینده محتوایی درمورد عبارات منظم نمایش خواهد داد.</string>
+    <string name="select_lesson">انتخاب زبان</string>
+    <string name="add_regex_input">افزودن ورودی RegEx</string>
+    <string name="remove_last_regex_input">حذف آخرین ورودی RegEx</string>
+    <string name="previous">قبلی</string>
+    <string name="next">بعدی</string>
+    <string name="regex_input_hint">الگوی regex را وارد کنید...</string>
+    <string name="message_empty_field_error">لطفاً این ورودی را پر کنید.</string>
+    <string name="system_default">پیش‌فرض سامانه</string>
+    <string name="language">زبان</string>
+    <string name="dark_mode">حالت تاریک</string>
+    <string name="contact_me">تماس با من</string>
+    <string name="about_app">درباره برنامه</string>
+    <string name="off">خاموش</string>
+    <string name="on">روشن</string>
+</resources>
