@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/home_fragment_app_bar_layout"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/home_fragment_toolbar"
+            app:title="@string/settings" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_language"
+                android:focusable="true"
+                android:clickable="true"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.RegExLearn.ListItem.CardView.Top">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/baseline_language_24"
+                        android:id="@+id/settings_fragment_image_view_icon_language"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_language"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@string/language"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/settings_fragment_text_view_title_language"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        app:layout_constraintStart_toStartOf="@id/settings_fragment_text_view_title_language"
+                        app:layout_constraintTop_toBottomOf="@id/settings_fragment_text_view_title_language"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/system_default"
+                        android:id="@+id/settings_fragment_text_view_description_language"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_night_mode"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginTop="4dp"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearance="@style/ShapeAppearance.RegExLearn.ListItem.CardView.Bottom">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/baseline_dark_mode_24"
+                        android:id="@+id/settings_fragment_image_view_icon_night_mode"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_night_mode"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@string/dark_mode"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/settings_fragment_text_view_title_night_mode"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        app:layout_constraintStart_toStartOf="@id/settings_fragment_text_view_title_night_mode"
+                        app:layout_constraintTop_toBottomOf="@id/settings_fragment_text_view_title_night_mode"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/system_default"
+                        android:id="@+id/settings_fragment_text_view_description_night_mode"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_contact_me"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginTop="24dp"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearance="@style/ShapeAppearance.RegExLearn.ListItem.CardView.Top">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/baseline_contact_support_24"
+                        android:id="@+id/settings_fragment_image_view_icon_contact_me"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/settings_fragment_image_view_action_icon_external_link"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_contact_me"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:maxLines="1"
+                        android:text="@string/contact_me"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/settings_fragment_text_view_title_contact_me"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/settings_fragment_image_view_action_icon_external_link"
+                        android:alpha="0.7"
+                        android:src="@drawable/outline_launch_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_about_app"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginTop="4dp"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearance="@style/ShapeAppearance.RegExLearn.ListItem.CardView.Bottom">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/baseline_perm_device_information_24"
+                        android:id="@+id/settings_fragment_image_view_icon_about_app"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_about_app"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@string/about_app"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/settings_fragment_text_view_title_about_app"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
