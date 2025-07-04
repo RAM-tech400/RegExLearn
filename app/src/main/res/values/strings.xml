@@ -21,4 +21,14 @@
     <string name="about_app">About app</string>
     <string name="off">OFF</string>
     <string name="on">ON</string>
+    <string name="arabic">العربية</string>
+    <string name="english">English</string>
+    <string name="persian">پارسی</string>
+    <string name="german">Deutsch</string>
+    <string name="spanish">Española</string>
+    <string name="french">Français</string>
+    <string name="italian">Italiano</string>
+    <string name="georgian">ქართული</string>
+    <string name="korean">한국인</string>
+    <string name="russia">Русский</string>
 </resources>
