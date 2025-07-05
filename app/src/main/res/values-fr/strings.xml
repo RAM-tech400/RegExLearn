@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RegEx Learn</string>
+    <string name="home">Maison</string>
+    <string name="learning">Apprentissage</string>
+    <string name="playground">Aire de jeux</string>
+    <string name="settings">Paramètres</string>
+    <string name="message_home_fragment_future_content">Cette page montrera du contenu sur le futur de RegEx !</string>
+    <string name="select_lesson">Sélectionnez une leçon</string>
+    <string name="select_lesson">Sélectionnez une leçon</string>
+    <string name="add_regex_input">Ajouter une entrée RegEx</string>
+    <string name="add_regex_input">Ajouter une entrée RegEx</string>
+    <string name="remove_last_regex_input">Supprimer la dernière entrée RegEx</string>
+    <string name="remove_last_regex_input">Supprimer la dernière entrée RegEx</string>
+    <string name="next">Suivante</string>
+    <string name="next">Suivante</string>
+    <string name="regex_input_hint">Entrez le modèle d\'expression régulière...</string>
+    <string name="regex_input_hint">Entrez le modèle d\'expression régulière...</string>
+    <string name="message_empty_field_error">Veuillez remplir cette entrée.</string>
+    <string name="message_empty_field_error">Veuillez remplir cette entrée.</string>
+    <string name="system_default">Valeur par défaut du système</string>
+    <string name="language">Langue</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="contact_me">Contactez-moi</string>
+    <string name="about_app">À propos de l\'application</string>
+    <string name="about_app">À propos de l\'application</string>
+    <string name="off">DÉSACTIVÉ</string>
+    <string name="on">SUR</string>
+    <string name="on">SUR</string>
+    <string name="previous">Précédente</string>
+</resources>
