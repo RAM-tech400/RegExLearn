@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="languages_label">
+        <item>@string/arabic</item>
+        <item>@string/german</item>
+        <item>@string/spanish</item>
+        <item>@string/persian</item>
+        <item>@string/french</item>
+        <item>@string/italian</item>
+        <item>@string/korean</item>
+        <item>@string/russia</item>
+    </array>
+</resources>
