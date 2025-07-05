@@ -1,10 +1,14 @@
 package com.ramapps.regexlearn
 
 import android.app.Activity
+import android.app.LocaleManager
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.Locale
+import java.util.Objects
+import androidx.core.content.edit
 
 class SettingsFragment : Fragment() {
 
@@ -45,7 +53,25 @@ class SettingsFragment : Fragment() {
 
     private fun addListeners() {
         languageSettingsItemCardView.setOnClickListener{
-            // Todo: Implement later.
+            val languagesLabelList = resources.getStringArray(R.array.languages_label).asList().toMutableList()
+            languagesLabelList.add(0, getString(R.string.system_default))
+            Log.d(TAG, "Languages label list: ${languagesLabelList.joinToString(", ")}")
+
+            val currentLocale = getCurrentLocale()
+            val defaultSelection = if (languagesLabelList.indexOf(localeToLanguageLabel(currentLocale)) < 0) {
+                0
+            } else {
+                languagesLabelList.indexOf(localeToLanguageLabel(currentLocale))
+            }
+
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.language))
+                .setSingleChoiceItems(languagesLabelList.toTypedArray(), defaultSelection, DialogInterface.OnClickListener{dialog, which ->
+                    updateAppLanguage(languagesLabelList.get(which))
+                })
+                .create()
+            dialog.window!!.attributes.gravity = Gravity.BOTTOM
+            dialog.show()
         }
 
         darkModeSettingsItemCardView.setOnClickListener{
@@ -64,7 +90,12 @@ class SettingsFragment : Fragment() {
                         1 -> AppCompatDelegate.MODE_NIGHT_YES
                         else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                     }
-                    prefs.edit().putInt(GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE, selectedDarkMode).apply()
+                    prefs.edit {
+                        putInt(
+                            GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE,
+                            selectedDarkMode
+                        )
+                    }
                     AppCompatDelegate.setDefaultNightMode(selectedDarkMode)
                     dia.dismiss()
                 })
@@ -85,8 +116,101 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun updateAppLanguage(languageLabel: String) {
+        val locale = languageLabelToLocale(languageLabel)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Use the system integrated locale manager to manage languages and locales.
+            // This give the user the ability to change app language from system settings.
+            Log.d(TAG, "Using android system LocaleManager to manage locales.")
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(locale))
+        } else {
+            // In old android versions we should manage locales by ourself.
+            // Using shared preferences to save and restore locales.
+            Log.d(TAG, "Using SharedPreferences to manage locales.")
+            val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
+            prefs.edit { putString(GlobalVariables.PREFERENCES_SETTINGS_LANGUAGE, locale.language) }
+        }
+    }
+
+    private fun languageLabelToLocale(languageLabel: String): Locale {
+        Log.d(TAG, "languageLabelToLocale($languageLabel)")
+        return when(languageLabel) {
+            getString(R.string.arabic) -> Locale("ar")
+            getString(R.string.german) -> Locale("de")
+            getString(R.string.spanish) -> Locale("es")
+            getString(R.string.persian) -> Locale("fa")
+            getString(R.string.french) -> Locale("fr")
+            getString(R.string.italian) -> Locale("it")
+            getString(R.string.korean) -> Locale("ko")
+            getString(R.string.russia) -> Locale("ru")
+            else -> Locale("")
+        }
+    }
+
+    private fun getCurrentLocale(): Locale {
+        var currentLocale = Locale("")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Use the system integrated locale manager to manage languages and locales.
+            // This give the user the ability to change app language from system settings.
+            Log.d(TAG, "Using android system LocaleManager to manage locales.")
+            val localeManager = requireActivity().getSystemService(LocaleManager::class.java)
+            val locales = AppCompatDelegate.getApplicationLocales()
+            Log.d(TAG, "Application locales: $locales")
+            currentLocale = Objects.requireNonNullElse(locales.get(0), Locale(""))
+        } else {
+            // In old android versions we should manage locales by ourself.
+            // Using shared preferences to save and restore locales.
+            Log.d(TAG, "Using SharedPreferences to manage locales.")
+            val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
+            currentLocale = Locale(prefs.getString(GlobalVariables.PREFERENCES_SETTINGS_LANGUAGE, "")!!)
+        }
+
+        Log.d(TAG, "Detected locale that used by app currently: $currentLocale")
+
+        return currentLocale
+    }
+
+    private fun localeToLanguageLabel(locale: Locale): String {
+        Log.d(TAG, "localeToLanguage($locale)")
+        return when(locale.language) {
+            "ar" -> getString(R.string.arabic)
+            "de" -> getString(R.string.german)
+            "es" -> getString(R.string.spanish)
+            "fa" -> getString(R.string.persian)
+            "fr" -> getString(R.string.french)
+            "it" -> getString(R.string.italian)
+            "ko" -> getString(R.string.korean)
+            "ru" -> getString(R.string.russia)
+            else -> getString(R.string.system_default)
+        }
+    }
+
     private fun loadSettingsToShow() {
         loadAndShowDarkMode()
+        loadAndShowLanguage()
+    }
+
+    private fun loadAndShowLanguage() {
+        var currentLocale = Locale("")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Use the system integrated locale manager to manage languages and locales.
+            // This give the user the ability to change app language from system settings.
+            Log.d(TAG, "Using android system LocaleManager to manage locales.")
+            val localeManager = requireActivity().getSystemService(LocaleManager::class.java)
+            val locales = localeManager.getApplicationLocales(requireContext().packageName)
+            Log.d(TAG, "Application locales: $locales")
+            currentLocale = Objects.requireNonNullElse(locales.get(0), Locale(""))
+        } else {
+            // In old android versions we should manage locales by ourself.
+            // Using shared preferences to save and restore locales.
+            Log.d(TAG, "Using SharedPreferences to manage locales.")
+            val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
+            currentLocale = Locale(prefs.getString(GlobalVariables.PREFERENCES_SETTINGS_LANGUAGE, "")!!)
+        }
+
+        val languageDescriptionTextView = parentView.findViewById<TextView>(R.id.settings_fragment_text_view_description_language)
+        languageDescriptionTextView.text = localeToLanguageLabel(currentLocale)
     }
 
     private fun loadAndShowDarkMode() {
