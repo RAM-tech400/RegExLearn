@@ -1,18 +1,17 @@
 package com.ramapps.regexlearn
 
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isEmpty
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+import java.util.Locale
 import kotlin.math.max
 
 class MainActivity : AppCompatActivity() {
@@ -21,15 +20,35 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        loadDarkModeState()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        loadDarkModeState()
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { loadAppLanguage() }
         setContentView(R.layout.activity_main)
         initViews()
         addListeners()
         if (supportFragmentManager.fragments.isEmpty()) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.main_fragment_container_view, HomeFragment.newInstance()).commit()
+        }
+    }
+
+    private fun loadAppLanguage() {
+        // Getting language settings and set it for android 12 and below. In the Android 13+ this setting automatically (App language feature).
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            val langCode =
+                getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, MODE_PRIVATE).getString(
+                    GlobalVariables.PREFERENCES_SETTINGS_LANGUAGE,
+                    ""
+                )!!
+            val configuration = resources.configuration
+            val displayMetrics = resources.displayMetrics
+            if (langCode.isEmpty()) {
+                configuration.setLocale(Locale.getDefault())
+            } else {
+                configuration.setLocale(Locale(langCode))
+            }
+            resources.updateConfiguration(configuration, displayMetrics)
         }
     }
 

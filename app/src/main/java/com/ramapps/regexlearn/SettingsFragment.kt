@@ -67,7 +67,12 @@ class SettingsFragment : Fragment() {
             val dialog = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.language))
                 .setSingleChoiceItems(languagesLabelList.toTypedArray(), defaultSelection, DialogInterface.OnClickListener{dialog, which ->
-                    updateAppLanguage(languagesLabelList.get(which))
+                    updateAppLanguage(languagesLabelList[which])
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                        val relauanchIntent = Intent(requireContext(), MainActivity::class.java)
+                        relauanchIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(relauanchIntent)
+                    }
                 })
                 .create()
             dialog.window!!.attributes.gravity = Gravity.BOTTOM
@@ -97,6 +102,7 @@ class SettingsFragment : Fragment() {
                         )
                     }
                     AppCompatDelegate.setDefaultNightMode(selectedDarkMode)
+                    loadAndShowDarkMode()
                     dia.dismiss()
                 })
                 .create()
