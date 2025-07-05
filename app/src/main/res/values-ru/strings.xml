@@ -2,32 +2,22 @@
 <resources>
     <string name="app_name">RegEx Узнать</string>
     <string name="about_app">О приложении</string>
-    <string name="about_app">О приложении</string>
     <string name="off">ВЫКЛЮЧЕННЫЙ</string>
     <string name="home">Home</string>
-    <string name="home">Home</string>
-    <string name="learning">Обучение</string>
     <string name="learning">Обучение</string>
     <string name="playground">Детская площадка</string>
     <string name="settings">Настройки</string>
-    <string name="settings">Настройки</string>
     <string name="message_home_fragment_future_content">На этой странице будет показан контент о будущем RegEx!</string>
-    <string name="message_home_fragment_future_content">На этой странице будет показан контент о будущем RegEx!</string>
-    <string name="select_lesson">Выбрать урок</string>
     <string name="select_lesson">Выбрать урок</string>
     <string name="add_regex_input">Добавить входные данные RegEx</string>
     <string name="remove_last_regex_input">Удалить последний входной сигнал RegEx</string>
-    <string name="remove_last_regex_input">Удалить последний входной сигнал RegEx</string>
     <string name="previous">Предыдущий</string>
     <string name="next">Следующий</string>
-    <string name="next">Следующий</string>
-    <string name="regex_input_hint">Введите шаблон регулярного выражения...</string>
     <string name="regex_input_hint">Введите шаблон регулярного выражения...</string>
     <string name="message_empty_field_error">Пожалуйста, заполните эту форму.</string>
     <string name="system_default">Системные настройки по умолчанию</string>
     <string name="language">Язык</string>
     <string name="dark_mode">Темный режим</string>
-    <string name="contact_me">Свяжитесь со мной</string>
     <string name="contact_me">Свяжитесь со мной</string>
     <string name="on">НА</string>
 </resources>

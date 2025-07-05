@@ -6,10 +6,8 @@
     <string name="previous">이전의</string>
     <string name="home">집</string>
     <string name="learning">학습</string>
-    <string name="learning">학습</string>
     <string name="playground">학습</string>
     <string name="settings">설정</string>
-    <string name="message_home_fragment_future_content">이 페이지에서는 RegEx의 미래에 대한 내용을 보여드리겠습니다!</string>
     <string name="message_home_fragment_future_content">이 페이지에서는 RegEx의 미래에 대한 내용을 보여드리겠습니다!</string>
     <string name="select_lesson">수업 선택</string>
     <string name="add_regex_input">정규식 입력 추가</string>
@@ -18,10 +16,8 @@
     <string name="regex_input_hint">정규식 패턴을 입력하세요...</string>
     <string name="message_empty_field_error">이 입력란을 채워주세요.</string>
     <string name="system_default">시스템 기본값</string>
-    <string name="system_default">시스템 기본값</string>
     <string name="language">언어</string>
     <string name="dark_mode">다크 모드</string>
     <string name="contact_me">나에게 연락하세요</string>
-    <string name="about_app">앱 정보</string>
     <string name="about_app">앱 정보</string>
 </resources>
