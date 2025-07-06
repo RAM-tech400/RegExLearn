@@ -138,7 +138,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="@string/description_settings_item_default_fragment"
-                        android:id="@+id/settings_fragment_text_view_description_night_mode"/>
+                        android:id="@+id/settings_fragment_text_view_description_default_fragment"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
