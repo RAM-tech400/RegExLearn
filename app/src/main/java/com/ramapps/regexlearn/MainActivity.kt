@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
@@ -26,10 +27,35 @@ class MainActivity : AppCompatActivity() {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { loadAppLanguage() }
         setContentView(R.layout.activity_main)
         initViews()
+        loadViewsDefaultState()
         addListeners()
+    }
+
+    private fun loadViewsDefaultState() {
+        val prefs = getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, MODE_PRIVATE)
+        val defaultFragmentId = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+        bottomNavigationView.selectedItemId = defaultFragmentId
         if (supportFragmentManager.fragments.isEmpty()) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.main_fragment_container_view, HomeFragment.newInstance()).commit()
+                .add(
+                    R.id.main_fragment_container_view,
+                    getBottomNavigationFragmentFromId(defaultFragmentId)
+                ).commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.main_fragment_container_view,
+                    getBottomNavigationFragmentFromId(defaultFragmentId)
+                ).commit()
+        }
+    }
+
+    private fun getBottomNavigationFragmentFromId(fragmentId: Int): Fragment {
+        return when(fragmentId) {
+            R.id.menu_item_learning -> LearningFragment.newInstance()
+            R.id.menu_item_playground -> PlaygroundFragment.newInstance()
+            R.id.menu_item_settings -> SettingsFragment.newInstance()
+            else -> HomeFragment.newInstance()
         }
     }
 
@@ -75,33 +101,11 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when(item.itemId) {
-                    R.id.menu_item_home -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container_view, HomeFragment.newInstance())
-                            .commit()
-                        return true
-                    }
-                    R.id.menu_item_learning -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container_view, LearningFragment.newInstance())
-                            .commit()
-                        return true
-                    }
-                    R.id.menu_item_playground -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container_view, PlaygroundFragment.newInstance())
-                            .commit()
-                        return true
-                    }
-                    R.id.menu_item_settings -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container_view, SettingsFragment.newInstance())
-                            .commit()
-                        return true
-                    }
-                }
-                return false
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.main_fragment_container_view,
+                    getBottomNavigationFragmentFromId(item.itemId)
+                ).commit()
+                return true
             }
         })
     }

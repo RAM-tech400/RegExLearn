@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -26,6 +27,7 @@ import androidx.core.content.edit
 class SettingsFragment : Fragment() {
 
     private lateinit var languageSettingsItemCardView : MaterialCardView
+    private lateinit var defaultFragmentSettingsItemCardView : MaterialCardView
     private lateinit var darkModeSettingsItemCardView : MaterialCardView
     private lateinit var contactMeSettingsItemCardView : MaterialCardView
     private lateinit var aboutAppSettingsItemCardView : MaterialCardView
@@ -46,6 +48,7 @@ class SettingsFragment : Fragment() {
     private fun initViews(parentView: View) {
         this.parentView = parentView
         languageSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_language)
+        defaultFragmentSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_default_fragment)
         darkModeSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_night_mode)
         contactMeSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_contact_me)
         aboutAppSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_about_app)
@@ -78,6 +81,40 @@ class SettingsFragment : Fragment() {
             dialog.window!!.attributes.gravity = Gravity.BOTTOM
             dialog.show()
         }
+
+        defaultFragmentSettingsItemCardView.setOnClickListener{
+            val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
+            val bottomNavigationItemsIdList = arrayOf(
+                getString(R.string.home),
+                getString(R.string.learning),
+                getString(R.string.playground))
+            val currentDefaultFragment = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+            val defSelection = when (currentDefaultFragment) {
+                R.id.menu_item_learning -> 1
+                R.id.menu_item_playground -> 2
+                else -> 0
+            }
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.default_launch_screen))
+                .setSingleChoiceItems(bottomNavigationItemsIdList, defSelection, DialogInterface.OnClickListener{dialog, which ->
+                    val selectedBottomNavigationItemId = when(which) {
+                        1 -> R.id.menu_item_learning
+                        2 -> R.id.menu_item_playground
+                        else -> R.id.menu_item_home
+                    }
+                    prefs.edit{
+                        putInt(
+                            GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT,
+                            selectedBottomNavigationItemId)
+                    }
+                    dialog.dismiss()
+                    loadAndShowDefaultFragment()
+                })
+                .create()
+            dialog.window!!.attributes.gravity = Gravity.BOTTOM
+            dialog.show()
+        }
+
 
         darkModeSettingsItemCardView.setOnClickListener{
             val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
@@ -120,6 +157,18 @@ class SettingsFragment : Fragment() {
         aboutAppSettingsItemCardView.setOnClickListener{
             // Todo: Implement later.
         }
+    }
+
+    private fun loadAndShowDefaultFragment() {
+        val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
+        val currentBottomNavigationDefaultItemId = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+        val defaultBottomNavigationFragmentStateIcon = when(currentBottomNavigationDefaultItemId) {
+            R.id.menu_item_learning -> R.drawable.outline_history_edu_24
+            R.id.menu_item_playground -> R.drawable.outline_playground_24px
+            else -> R.drawable.outline_home_24
+        }
+        val defaultBottomNavigationFragmentStateImageView = parentView.findViewById<ImageView>(R.id.settings_fragment_image_view_icon_default_fragment)
+        defaultBottomNavigationFragmentStateImageView.setImageResource(defaultBottomNavigationFragmentStateIcon)
     }
 
     private fun updateAppLanguage(languageLabel: String) {
@@ -194,6 +243,7 @@ class SettingsFragment : Fragment() {
 
     private fun loadSettingsToShow() {
         loadAndShowDarkMode()
+        loadAndShowDefaultFragment()
         loadAndShowLanguage()
     }
 
