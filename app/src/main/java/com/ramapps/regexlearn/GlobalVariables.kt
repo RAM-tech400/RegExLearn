@@ -21,5 +21,6 @@ class GlobalVariables {
         val PREFERENCES_NAME_SETTINGS = "Settings"
         val PREFERENCES_SETTINGS_LANGUAGE = "Language"
         val PREFERENCES_SETTINGS_DARK_MODE = "Dark mode"
+        val PREFERENCES_SETTINGS_DEFAULT_FRAGMENT = "Default fragment"
     }
 }
