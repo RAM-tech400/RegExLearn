@@ -20,4 +20,6 @@
     <string name="off">DÉSACTIVÉ</string>
     <string name="on">SUR</string>
     <string name="previous">Précédente</string>
+    <string name="default_launch_screen">Écran de lancement par défaut</string>
+    <string name="description_settings_item_default_fragment">L\'écran que vous souhaitez apparaît lorsque vous ouvrez cette application.</string>
 </resources>

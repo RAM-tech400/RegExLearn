@@ -93,6 +93,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_default_fragment"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginTop="4dp"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearance="@style/ShapeAppearanceListItemCardViewMiddle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/outline_home_24"
+                        android:id="@+id/settings_fragment_image_view_icon_default_fragment"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_default_fragment"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@string/default_launch_screen"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:id="@+id/settings_fragment_text_view_title_default_fragment"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        app:layout_constraintStart_toStartOf="@id/settings_fragment_text_view_title_default_fragment"
+                        app:layout_constraintTop_toBottomOf="@id/settings_fragment_text_view_title_default_fragment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/description_settings_item_default_fragment"
+                        android:id="@+id/settings_fragment_text_view_description_night_mode"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:id="@+id/settings_fragment_card_view_night_mode"
                 android:focusable="true"
                 android:clickable="true"

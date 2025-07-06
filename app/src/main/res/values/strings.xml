@@ -31,4 +31,6 @@
     <string name="korean" translatable="false">한국인</string>
     <string name="russia" translatable="false">Русский</string>
     <string name="previous">Previous</string>
+    <string name="default_launch_screen">Default launch screen</string>
+    <string name="description_settings_item_default_fragment">The screen you want to comes up when you open this app.</string>
 </resources>

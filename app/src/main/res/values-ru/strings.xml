@@ -20,4 +20,6 @@
     <string name="dark_mode">Темный режим</string>
     <string name="contact_me">Свяжитесь со мной</string>
     <string name="on">НА</string>
+    <string name="default_launch_screen">Экран запуска по умолчанию</string>
+    <string name="description_settings_item_default_fragment">При открытии этого приложения появляется нужный вам экран.</string>
 </resources>

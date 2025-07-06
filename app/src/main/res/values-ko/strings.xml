@@ -20,4 +20,6 @@
     <string name="dark_mode">다크 모드</string>
     <string name="contact_me">나에게 연락하세요</string>
     <string name="about_app">앱 정보</string>
+    <string name="default_launch_screen">기본 시작 화면</string>
+    <string name="description_settings_item_default_fragment">이 앱을 열면 원하는 화면이 나옵니다.</string>
 </resources>

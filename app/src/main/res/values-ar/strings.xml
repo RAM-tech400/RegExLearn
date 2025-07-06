@@ -20,4 +20,6 @@
     <string name="about_app">حول التطبيق</string>
     <string name="off">عن</string>
     <string name="on">على</string>
+    <string name="default_launch_screen">شاشة التشغيل الافتراضية</string>
+    <string name="description_settings_item_default_fragment">ستظهر الشاشة التي تريدها عند فتح هذا التطبيق.</string>
 </resources>
