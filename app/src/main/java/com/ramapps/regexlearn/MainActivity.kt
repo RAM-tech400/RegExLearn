@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        loadDarkModeState()
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { loadAppLanguage() }
         setContentView(R.layout.activity_main)
         initViews()
@@ -76,13 +75,6 @@ class MainActivity : AppCompatActivity() {
             }
             resources.updateConfiguration(configuration, displayMetrics)
         }
-    }
-
-    private fun loadDarkModeState() {
-        val prefs = getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, MODE_PRIVATE)
-        val darkModeState = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(darkModeState)
-
     }
 
     private fun addListeners() {
