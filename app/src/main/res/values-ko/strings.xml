@@ -22,4 +22,5 @@
     <string name="about_app">앱 정보</string>
     <string name="default_launch_screen">기본 시작 화면</string>
     <string name="description_settings_item_default_fragment">이 앱을 열면 원하는 화면이 나옵니다.</string>
+    <string name="by_reza_alimohammadi">레자 알리모하마디 지음</string>
 </resources>

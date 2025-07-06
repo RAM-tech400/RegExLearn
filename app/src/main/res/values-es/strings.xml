@@ -22,4 +22,5 @@
     <string name="on">EN</string>
     <string name="default_launch_screen">Pantalla de inicio predeterminada</string>
     <string name="description_settings_item_default_fragment">La pantalla que deseas aparece cuando abres esta aplicación.</string>
+    <string name="by_reza_alimohammadi">Por Reza Alimohammadi</string>
 </resources>

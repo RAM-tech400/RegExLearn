@@ -22,4 +22,5 @@
     <string name="on">روشن</string>
     <string name="default_launch_screen">صفحه شروع پیش‌فرض</string>
     <string name="description_settings_item_default_fragment">صفحه‌ای که می‌خواهید هنگام باز کردن این برنامه نمایش داده شود.</string>
+    <string name="by_reza_alimohammadi">توسط رضا علی‌محمدی</string>
 </resources>

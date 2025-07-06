@@ -155,7 +155,7 @@ class SettingsFragment : Fragment() {
         }
 
         aboutAppSettingsItemCardView.setOnClickListener{
-            // Todo: Implement later.
+            startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
     }
 
