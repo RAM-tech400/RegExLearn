@@ -33,16 +33,10 @@ class MainActivity : AppCompatActivity() {
     private fun loadViewsDefaultState() {
         val prefs = getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, MODE_PRIVATE)
         val defaultFragmentId = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
-        bottomNavigationView.selectedItemId = defaultFragmentId
         if (supportFragmentManager.fragments.isEmpty()) {
+            bottomNavigationView.selectedItemId = defaultFragmentId
             supportFragmentManager.beginTransaction()
                 .add(
-                    R.id.main_fragment_container_view,
-                    getBottomNavigationFragmentFromId(defaultFragmentId)
-                ).commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(
                     R.id.main_fragment_container_view,
                     getBottomNavigationFragmentFromId(defaultFragmentId)
                 ).commit()
