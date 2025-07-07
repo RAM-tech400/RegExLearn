@@ -76,6 +76,8 @@ class SettingsFragment : Fragment() {
                         relauanchIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(relauanchIntent)
                     }
+                    dialog.dismiss()
+                    loadAndShowLanguage()
                 })
                 .create()
             dialog.window!!.attributes.gravity = Gravity.BOTTOM
@@ -191,13 +193,14 @@ class SettingsFragment : Fragment() {
         Log.d(TAG, "languageLabelToLocale($languageLabel)")
         return when(languageLabel) {
             getString(R.string.arabic) -> Locale("ar")
-            getString(R.string.german) -> Locale("de")
-            getString(R.string.spanish) -> Locale("es")
-            getString(R.string.persian) -> Locale("fa")
+            getString(R.string.english) -> Locale("en")
             getString(R.string.french) -> Locale("fr")
+            getString(R.string.german) -> Locale("de")
             getString(R.string.italian) -> Locale("it")
             getString(R.string.korean) -> Locale("ko")
+            getString(R.string.persian) -> Locale("fa")
             getString(R.string.russia) -> Locale("ru")
+            getString(R.string.spanish) -> Locale("es")
             else -> Locale("")
         }
     }
@@ -230,13 +233,14 @@ class SettingsFragment : Fragment() {
         Log.d(TAG, "localeToLanguage($locale)")
         return when(locale.language) {
             "ar" -> getString(R.string.arabic)
-            "de" -> getString(R.string.german)
-            "es" -> getString(R.string.spanish)
-            "fa" -> getString(R.string.persian)
+            "en" -> getString(R.string.english)
             "fr" -> getString(R.string.french)
+            "de" -> getString(R.string.german)
             "it" -> getString(R.string.italian)
             "ko" -> getString(R.string.korean)
+            "fa" -> getString(R.string.persian)
             "ru" -> getString(R.string.russia)
+            "es" -> getString(R.string.spanish)
             else -> getString(R.string.system_default)
         }
     }

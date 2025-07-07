@@ -2,12 +2,13 @@
 <resources>
     <array name="languages_label">
         <item>@string/arabic</item>
-        <item>@string/german</item>
-        <item>@string/spanish</item>
-        <item>@string/persian</item>
+        <item>@string/english</item>
         <item>@string/french</item>
+        <item>@string/german</item>
         <item>@string/italian</item>
         <item>@string/korean</item>
+        <item>@string/persian</item>
         <item>@string/russia</item>
+        <item>@string/spanish</item>
     </array>
 </resources>
