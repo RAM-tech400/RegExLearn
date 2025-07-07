@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LearningFragment">
+    tools:context=".LearningFragment"
+    android:textDirection="locale">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textDirection="ltr"
                 android:id="@+id/learning_fragment_text_view_lesson_content"
                 android:text="Khalid Hosseini writes in the wind of the wind: the little man whispered in the ears of his newly mature child's ear: 'My son, you never rob you of life."
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
