@@ -44,7 +44,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Enter a text for playing with RegEx..."/>
+                    android:hint="@string/enter_a_text_for_playing_with_regex"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Flags:"
+                        android:text="@string/flags"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
 
                     <com.google.android.material.chip.ChipGroup
@@ -75,7 +75,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/playground_fragment_chip_global"
-                            android:text="Global"
+                            android:text="@string/global"
                             android:checkable="true"
                             app:chipIcon="@drawable/g_mobiledata_24px"/>
 
@@ -83,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/playground_fragment_chip_multiline"
-                            android:text="Multiline"
+                            android:text="@string/multiline"
                             android:checkable="true"
                             app:chipIcon="@drawable/metro_24px" />
 
@@ -91,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/playground_fragment_chip_ignore_case"
-                            android:text="Ignore Case"
+                            android:text="@string/ignore_case"
                             android:checkable="true"
                             app:chipIcon="@drawable/info_i_24px"/>
 

@@ -23,4 +23,9 @@
     <string name="default_launch_screen">Pantalla de inicio predeterminada</string>
     <string name="description_settings_item_default_fragment">La pantalla que deseas aparece cuando abres esta aplicación.</string>
     <string name="by_reza_alimohammadi">Por Reza Alimohammadi</string>
+    <string name="enter_a_text_for_playing_with_regex">Introduzca un texto para jugar con RegEx...</string>
+    <string name="flags">Banderas:</string>
+    <string name="global">Global</string>
+    <string name="multiline">Multilínea</string>
+    <string name="ignore_case">Bandera que no distingue entre mayúsculas y minúsculas</string>
 </resources>

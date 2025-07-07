@@ -23,4 +23,9 @@
     <string name="default_launch_screen">Schermata di avvio predefinita</string>
     <string name="description_settings_item_default_fragment">La schermata che desideri venga visualizzata quando apri questa app.</string>
     <string name="by_reza_alimohammadi">Di Reza Alimohammadi</string>
+    <string name="enter_a_text_for_playing_with_regex">Inserisci un testo per giocare con RegEx...</string>
+    <string name="flags">Bandiere:</string>
+    <string name="global">Globale</string>
+    <string name="multiline">Multilinea</string>
+    <string name="ignore_case">Case-insensitive</string>
 </resources>

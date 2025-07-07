@@ -23,4 +23,9 @@
     <string name="default_launch_screen">Экран запуска по умолчанию</string>
     <string name="description_settings_item_default_fragment">При открытии этого приложения появляется нужный вам экран.</string>
     <string name="by_reza_alimohammadi">Реза Алимохаммади</string>
+    <string name="enter_a_text_for_playing_with_regex">Введите текст для игры с RegEx...</string>
+    <string name="flags">Флаги:</string>
+    <string name="global">Глобальный</string>
+    <string name="multiline">Многострочный</string>
+    <string name="ignore_case">Игнорировать регистр</string>
 </resources>

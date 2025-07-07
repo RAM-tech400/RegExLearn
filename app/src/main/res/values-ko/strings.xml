@@ -23,4 +23,9 @@
     <string name="default_launch_screen">기본 시작 화면</string>
     <string name="description_settings_item_default_fragment">이 앱을 열면 원하는 화면이 나옵니다.</string>
     <string name="by_reza_alimohammadi">레자 알리모하마디 지음</string>
+    <string name="enter_a_text_for_playing_with_regex">정규식을 사용해 놀려면 텍스트를 입력하세요...</string>
+    <string name="flags">플래그:</string>
+    <string name="global">글로벌</string>
+    <string name="multiline">다중 라인</string>
+    <string name="ignore_case">대소문자 구분 안 함</string>
 </resources>

@@ -34,4 +34,9 @@
     <string name="default_launch_screen">Default launch screen</string>
     <string name="description_settings_item_default_fragment">The screen you want to comes up when you open this app.</string>
     <string name="by_reza_alimohammadi">By Reza Alimohammadi</string>
+    <string name="enter_a_text_for_playing_with_regex">Enter a text for playing with RegEx...</string>
+    <string name="flags">Flags:</string>
+    <string name="global">Global</string>
+    <string name="multiline">Multiline</string>
+    <string name="ignore_case">Ignore Case</string>
 </resources>

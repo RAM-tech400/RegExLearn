@@ -23,4 +23,9 @@
     <string name="default_launch_screen">Standard-Startbildschirm</string>
     <string name="description_settings_item_default_fragment">Der gewünschte Bildschirm wird angezeigt, wenn Sie diese App öffnen.</string>
     <string name="by_reza_alimohammadi">Von Reza Alimohammadi</string>
+    <string name="enter_a_text_for_playing_with_regex">Geben Sie einen Text zum Spielen mit RegEx ein ...</string>
+    <string name="flags">Flaggen:</string>
+    <string name="global">Globale</string>
+    <string name="multiline">Mehrzeiliges</string>
+    <string name="ignore_case">Groß-/Kleinschreibung beachten</string>
 </resources>
