@@ -44,24 +44,11 @@ class Utils {
 
     fun getJSONObjectFromRaw(rawResources: Resources, rawJsonId: Int): JSONObject {
         Log.v(TAG, "getJSONObjectFromRaw()")
-
         val inputStream = rawResources.openRawResource(rawJsonId)
-        val writer = StringWriter()
-
-        while (true) {
-            val n = inputStream.read()
-
-            if (n < 0) break
-
-            writer.write(n)
-        }
-
-        val stringJSON = writer.toString()
+        val stringJSON = inputStream.bufferedReader().use { it.readText() }
 
         Log.v(TAG, "Closing open streams for making free-up resources...")
         inputStream.close()
-        writer.close()
-
         return JSONObject(stringJSON)
     }
 
