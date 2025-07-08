@@ -28,4 +28,5 @@
     <string name="global">جهانی</string>
     <string name="multiline">چند خطی</string>
     <string name="ignore_case">بدون حساسیت</string>
+    <string name="wrong_regex_pattern">الگوی regex اشتباه است!</string>
 </resources>

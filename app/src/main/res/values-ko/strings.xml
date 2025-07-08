@@ -28,4 +28,5 @@
     <string name="global">글로벌</string>
     <string name="multiline">다중 라인</string>
     <string name="ignore_case">대소문자 구분 안 함</string>
+    <string name="wrong_regex_pattern">잘못된 정규식 패턴입니다!</string>
 </resources>

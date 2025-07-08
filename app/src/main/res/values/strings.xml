@@ -39,4 +39,5 @@
     <string name="global">Global</string>
     <string name="multiline">Multiline</string>
     <string name="ignore_case">Ignore Case</string>
+    <string name="wrong_regex_pattern">Wrong regex pattern!</string>
 </resources>

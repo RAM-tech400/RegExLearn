@@ -28,4 +28,5 @@
     <string name="global">Globale</string>
     <string name="multiline">Mehrzeiliges</string>
     <string name="ignore_case">Groß-/Kleinschreibung beachten</string>
+    <string name="wrong_regex_pattern">Falsches Regex-Muster!</string>
 </resources>

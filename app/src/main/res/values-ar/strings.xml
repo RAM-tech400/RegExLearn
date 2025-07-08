@@ -28,4 +28,5 @@
     <string name="global">العالمية</string>
     <string name="multiline">متعددة الأسطر</string>
     <string name="ignore_case">عدم حساسية الحالة</string>
+    <string name="wrong_regex_pattern">نمط التعبيرات العادية خاطئ!</string>
 </resources>

@@ -28,4 +28,5 @@
     <string name="global">Globale</string>
     <string name="multiline">Multilinea</string>
     <string name="ignore_case">Case-insensitive</string>
+    <string name="wrong_regex_pattern">Modello regex sbagliato!</string>
 </resources>

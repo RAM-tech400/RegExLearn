@@ -28,4 +28,5 @@
     <string name="global">Глобальный</string>
     <string name="multiline">Многострочный</string>
     <string name="ignore_case">Игнорировать регистр</string>
+    <string name="wrong_regex_pattern">Неправильный шаблон регулярного выражения!</string>
 </resources>
