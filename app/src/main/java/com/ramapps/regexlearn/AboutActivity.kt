@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import kotlin.math.max
 
 class AboutActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,12 +21,11 @@ class AboutActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             val displayCutouts = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
 
-            val top = max(systemBars.top, displayCutouts.top)
             val right = max(systemBars.right, displayCutouts.right)
-            val bottom = max(systemBars.bottom, displayCutouts.bottom)
             val left = max(systemBars.left, displayCutouts.left)
 
             v.setPadding(left, 0, right, 0)
+
             insets
         }
     }
