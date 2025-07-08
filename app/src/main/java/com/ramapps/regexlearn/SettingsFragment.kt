@@ -179,7 +179,13 @@ class SettingsFragment : Fragment() {
             // Use the system integrated locale manager to manage languages and locales.
             // This give the user the ability to change app language from system settings.
             Log.d(TAG, "Using android system LocaleManager to manage locales.")
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(locale))
+            val locales: LocaleListCompat =
+                if(Objects.equals(locale.language, "")) {
+                LocaleListCompat.getEmptyLocaleList()
+            } else {
+                LocaleListCompat.create(languageLabelToLocale(languageLabel))
+            }
+            AppCompatDelegate.setApplicationLocales(locales)
         } else {
             // In old android versions we should manage locales by ourself.
             // Using shared preferences to save and restore locales.
