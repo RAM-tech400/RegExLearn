@@ -11,7 +11,7 @@
 
     <item android:state_focused="true">
         <shape>
-            <stroke android:color="?attr/colorOnPrimaryFixedVariant" android:width="2dp"/>
+            <stroke android:color="?attr/colorOnPrimaryContainer" android:width="2dp"/>
             <corners android:radius="12dp"/>
             <solid android:color="?attr/colorPrimaryContainer"/>
             <padding android:left="12dp" android:right="12dp" android:bottom="8dp" android:top="8dp"/>
