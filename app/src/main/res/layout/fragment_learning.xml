@@ -43,14 +43,6 @@
                 android:text="  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/learning_fragment_linear_layout_tasks"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="18dp"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +50,49 @@
                 android:id="@+id/learning_fragment_text_view_lesson_content"
                 android:text="Khalid Hosseini writes in the wind of the wind: the little man whispered in the ears of his newly mature child's ear: 'My son, you never rob you of life."
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:background="@drawable/rounded_low_surface_background"/>
+                android:background="@drawable/rounded_low_surface_background"
+                android:layout_marginTop="48dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="0dp"
+                android:requiresFadingEdge="horizontal"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/learning_fragment_chip_group"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/learning_fragment_chip_global"
+                        android:text="@string/global"
+                        android:checkable="true"
+                        app:chipIcon="@drawable/g_mobiledata_24px"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/learning_fragment_chip_multiline"
+                        android:text="@string/multiline"
+                        android:checkable="true"
+                        app:chipIcon="@drawable/metro_24px" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/learning_fragment_chip_ignore_case"
+                        android:text="@string/ignore_case"
+                        android:checkable="true"
+                        app:chipIcon="@drawable/info_i_24px"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
