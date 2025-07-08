@@ -1,4 +1,4 @@
-package com.ramapps.regexlearn
+package com.ramapps.regexlearn.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.chip.ChipGroup.OnCheckedStateChangeListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
+import com.ramapps.regexlearn.R
+import com.ramapps.regexlearn.RegexUtils
 
 class PlaygroundFragment : Fragment() {
 
@@ -73,7 +73,8 @@ class PlaygroundFragment : Fragment() {
     }
 
     private fun applyRegexOnPreview() {
-        previewTextInput.editText!!.setText(RegexUtils().applyStyleToString(
+        previewTextInput.editText!!.setText(
+            RegexUtils().applyStyleToString(
             Regex(regexPatternInput.editText!!.text.toString()),
             userSelectedFlags,
             previewTextInput.editText!!.text.toString()))

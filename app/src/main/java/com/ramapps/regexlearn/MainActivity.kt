@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+import com.ramapps.regexlearn.fragments.HomeFragment
+import com.ramapps.regexlearn.fragments.LearningFragment
+import com.ramapps.regexlearn.fragments.PlaygroundFragment
+import com.ramapps.regexlearn.fragments.SettingsFragment
 import java.util.Locale
 import kotlin.math.max
 

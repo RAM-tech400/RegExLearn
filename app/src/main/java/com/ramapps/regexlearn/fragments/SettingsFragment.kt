@@ -1,4 +1,4 @@
-package com.ramapps.regexlearn
+package com.ramapps.regexlearn.fragments
 
 import android.app.Activity
 import android.app.LocaleManager
@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.LocaleList
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -23,6 +22,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Locale
 import java.util.Objects
 import androidx.core.content.edit
+import com.ramapps.regexlearn.AboutActivity
+import com.ramapps.regexlearn.GlobalVariables
+import com.ramapps.regexlearn.MainActivity
+import com.ramapps.regexlearn.R
 
 class SettingsFragment : Fragment() {
 
@@ -90,7 +93,10 @@ class SettingsFragment : Fragment() {
                 getString(R.string.home),
                 getString(R.string.learning),
                 getString(R.string.playground))
-            val currentDefaultFragment = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+            val currentDefaultFragment = prefs.getInt(
+                GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT,
+                R.id.menu_item_home
+            )
             val defSelection = when (currentDefaultFragment) {
                 R.id.menu_item_learning -> 1
                 R.id.menu_item_playground -> 2
@@ -120,7 +126,9 @@ class SettingsFragment : Fragment() {
 
         darkModeSettingsItemCardView.setOnClickListener{
             val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
-            val darkModeLabels = arrayOf(getString(R.string.off), getString(R.string.on), getString(R.string.system_default))
+            val darkModeLabels = arrayOf(getString(R.string.off), getString(R.string.on), getString(
+                R.string.system_default
+            ))
             val darkModeCurrentState = when (prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)) {
                 AppCompatDelegate.MODE_NIGHT_NO -> 0
                 AppCompatDelegate.MODE_NIGHT_YES -> 1
@@ -163,7 +171,10 @@ class SettingsFragment : Fragment() {
 
     private fun loadAndShowDefaultFragment() {
         val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, Activity.MODE_PRIVATE)
-        val currentBottomNavigationDefaultItemId = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+        val currentBottomNavigationDefaultItemId = prefs.getInt(
+            GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT,
+            R.id.menu_item_home
+        )
         val defaultBottomNavigationFragmentStateIcon = when(currentBottomNavigationDefaultItemId) {
             R.id.menu_item_learning -> R.drawable.outline_history_edu_24
             R.id.menu_item_playground -> R.drawable.outline_playground_24px
@@ -288,7 +299,9 @@ class SettingsFragment : Fragment() {
         when (darkModeState) {
             AppCompatDelegate.MODE_NIGHT_NO -> darkModeDescriptionTextView.text = getString(R.string.off)
             AppCompatDelegate.MODE_NIGHT_YES -> darkModeDescriptionTextView.text = getString(R.string.on)
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> darkModeDescriptionTextView.text = getString(R.string.system_default)
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> darkModeDescriptionTextView.text = getString(
+                R.string.system_default
+            )
         }
     }
 

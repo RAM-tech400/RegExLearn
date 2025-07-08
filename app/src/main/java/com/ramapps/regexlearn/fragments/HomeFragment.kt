@@ -1,10 +1,11 @@
-package com.ramapps.regexlearn
+package com.ramapps.regexlearn.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ramapps.regexlearn.R
 
 class HomeFragment : Fragment() {
 
