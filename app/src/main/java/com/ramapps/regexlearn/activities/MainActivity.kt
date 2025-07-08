@@ -1,4 +1,4 @@
-package com.ramapps.regexlearn
+package com.ramapps.regexlearn.activities
 
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+import com.ramapps.regexlearn.GlobalVariables
+import com.ramapps.regexlearn.R
 import com.ramapps.regexlearn.fragments.HomeFragment
 import com.ramapps.regexlearn.fragments.LearningFragment
 import com.ramapps.regexlearn.fragments.PlaygroundFragment
@@ -35,7 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadViewsDefaultState() {
         val prefs = getSharedPreferences(GlobalVariables.PREFERENCES_NAME_SETTINGS, MODE_PRIVATE)
-        val defaultFragmentId = prefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT, R.id.menu_item_home)
+        val defaultFragmentId = prefs.getInt(
+            GlobalVariables.PREFERENCES_SETTINGS_DEFAULT_FRAGMENT,
+            R.id.menu_item_home
+        )
         if (supportFragmentManager.fragments.isEmpty()) {
             bottomNavigationView.selectedItemId = defaultFragmentId
             supportFragmentManager.beginTransaction()

@@ -1,10 +1,11 @@
-package com.ramapps.regexlearn
+package com.ramapps.regexlearn.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ramapps.regexlearn.R
 import kotlin.math.max
 
 class AboutActivity : AppCompatActivity() {

@@ -22,9 +22,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Locale
 import java.util.Objects
 import androidx.core.content.edit
-import com.ramapps.regexlearn.AboutActivity
+import com.ramapps.regexlearn.activities.AboutActivity
 import com.ramapps.regexlearn.GlobalVariables
-import com.ramapps.regexlearn.MainActivity
+import com.ramapps.regexlearn.activities.MainActivity
 import com.ramapps.regexlearn.R
 
 class SettingsFragment : Fragment() {
