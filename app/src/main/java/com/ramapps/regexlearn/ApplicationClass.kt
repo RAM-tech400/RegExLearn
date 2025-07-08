@@ -20,7 +20,9 @@ class ApplicationClass : Application() {
     }
 
     private fun loadAndSetDarkMode() {
-        val darkModeState = settingsPrefs.getInt(GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        val darkModeState = settingsPrefs.getInt(
+            GlobalVariables.PREFERENCES_SETTINGS_DARK_MODE,
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         AppCompatDelegate.setDefaultNightMode(darkModeState)
     }
 
