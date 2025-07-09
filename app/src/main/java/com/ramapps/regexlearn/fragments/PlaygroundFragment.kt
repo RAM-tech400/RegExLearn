@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.chip.ChipGroup.OnCheckedStateChangeListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import com.ramapps.regexlearn.R
 import com.ramapps.regexlearn.RegexUtils
 
 class PlaygroundFragment : Fragment() {
-
     private lateinit var previewTextInput : TextInputLayout
     private lateinit var runFloatingActionButton : FloatingActionButton
     private lateinit var flagsChipGroup: ChipGroup
@@ -32,7 +30,14 @@ class PlaygroundFragment : Fragment() {
         return view
     }
 
-    fun addListeners() {
+    private fun initializeViews(view: View) {
+        previewTextInput = view.findViewById(R.id.playground_fragment_text_input_preview)
+        runFloatingActionButton = view.findViewById(R.id.playground_fragment_fab_run)
+        flagsChipGroup = view.findViewById(R.id.playground_fragment_chip_group)
+        regexPatternInput = view.findViewById(R.id.playground_fragment_text_input_layout_regex)
+    }
+
+    private fun addListeners() {
         runFloatingActionButton.setOnClickListener{
             if (checkTextFields()) {
                 applyRegexOnPreview()
@@ -41,18 +46,16 @@ class PlaygroundFragment : Fragment() {
             }
         }
 
-        flagsChipGroup.setOnCheckedStateChangeListener(object : OnCheckedStateChangeListener{
-            override fun onCheckedChanged(group: ChipGroup, checkedIds: MutableList<Int>) {
-                userSelectedFlags = ""
-                checkedIds.forEach{id ->
-                    when (id) {
-                        R.id.playground_fragment_chip_global -> userSelectedFlags += "g"
-                        R.id.playground_fragment_chip_multiline -> userSelectedFlags += "m"
-                        R.id.playground_fragment_chip_ignore_case -> userSelectedFlags += "i"
-                    }
+        flagsChipGroup.setOnCheckedStateChangeListener{ _: ChipGroup, checkedIds: MutableList<Int> ->
+            userSelectedFlags = ""
+            checkedIds.forEach{id ->
+                when (id) {
+                    R.id.playground_fragment_chip_global -> userSelectedFlags += "g"
+                    R.id.playground_fragment_chip_multiline -> userSelectedFlags += "m"
+                    R.id.playground_fragment_chip_ignore_case -> userSelectedFlags += "i"
                 }
             }
-        })
+        }
     }
 
     private fun checkTextFields(): Boolean {
@@ -75,16 +78,9 @@ class PlaygroundFragment : Fragment() {
     private fun applyRegexOnPreview() {
         previewTextInput.editText!!.setText(
             RegexUtils().applyStyleToString(
-            Regex(regexPatternInput.editText!!.text.toString()),
-            userSelectedFlags,
-            previewTextInput.editText!!.text.toString()))
-    }
-
-    private fun initializeViews(view: View) {
-        previewTextInput = view.findViewById(R.id.playground_fragment_text_input_preview)
-        runFloatingActionButton = view.findViewById(R.id.playground_fragment_fab_run)
-        flagsChipGroup = view.findViewById(R.id.playground_fragment_chip_group)
-        regexPatternInput = view.findViewById(R.id.playground_fragment_text_input_layout_regex)
+                Regex(regexPatternInput.editText!!.text.toString()),
+                userSelectedFlags,
+                previewTextInput.editText!!.text.toString()))
     }
 
     companion object {
