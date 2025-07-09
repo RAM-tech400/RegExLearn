@@ -1,19 +1,10 @@
 package com.ramapps.regexlearn
 
 import android.content.res.Resources
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RoundRectShape
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.style.BackgroundColorSpan
-import android.text.style.StyleSpan
 import android.util.Log
-import androidx.core.provider.FontsContractCompat.TypefaceStyle
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.StringWriter
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 class Utils {
     companion object {
