@@ -6,7 +6,7 @@
     <string name="playground">زمین تمرین</string>
     <string name="settings">تنظیمات</string>
     <string name="message_home_fragment_future_content">این صفحه در آینده محتوایی درمورد عبارات منظم نمایش خواهد داد.</string>
-    <string name="select_lesson">انتخاب زبان</string>
+    <string name="select_lesson">انتخاب درس</string>
     <string name="add_regex_input">افزودن ورودی RegEx</string>
     <string name="remove_last_regex_input">حذف آخرین ورودی RegEx</string>
     <string name="previous">قبلی</string>
