@@ -26,6 +26,7 @@ import androidx.core.view.updateMarginsRelative
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 import com.ramapps.regexlearn.GlobalVariables
@@ -43,6 +44,7 @@ class LearningFragment : Fragment() {
     private lateinit var regexTextInput : TextInputLayout
     private lateinit var previousLessonButton : Button
     private lateinit var nextLessonButton: Button
+    private lateinit var flagsChipGroup: ChipGroup
 
     private var lessonId = 0
     private var initialFlags = ""
@@ -76,6 +78,7 @@ class LearningFragment : Fragment() {
         regexTextInput = view.findViewById(R.id.learning_fragment_text_input_layout_regex)
         previousLessonButton = view.findViewById(R.id.learning_fragment_button_previous_lesson)
         nextLessonButton = view.findViewById(R.id.learning_fragment_button_next_lesson)
+        flagsChipGroup = view.findViewById(R.id.learning_fragment_chip_group)
     }
 
     private fun addListeners() {
@@ -135,6 +138,32 @@ class LearningFragment : Fragment() {
                 handler.postDelayed(codeAfterTextEditedRunnable, 500)
             }
         })
+
+        flagsChipGroup.setOnCheckedStateChangeListener{ _: ChipGroup, checkedIds: MutableList<Int> ->
+            Log.v(TAG, "Regex flags changed...")
+            flags = ""
+            checkedIds.forEach{id ->
+                when (id) {
+                    R.id.learning_fragment_chip_global -> flags += "g"
+                    R.id.learning_fragment_chip_multiline -> flags += "m"
+                    R.id.learning_fragment_chip_ignore_case -> flags += "i"
+                }
+            }
+            try{
+                contentTextView.text = RegexUtils().applyStyleToString(Regex(regexTextInput.editText!!.text.toString()), flags, contentText)
+                Log.v(TAG, "ContentTextView text has been set to: ${contentTextView.text}")
+                if (checkAnswer()) {
+                    Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
+                    nextLessonButton.isEnabled = true
+                } else {
+                    Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
+                }
+            } catch (e : PatternSyntaxException) {
+                Log.e(TAG, "Wrong regex pattern! Error details: $e")
+                regexTextInput.error = getString(R.string.wrong_regex_pattern)
+            }
+            Log.d(TAG, "Enabled flags: $flags")
+        }
     }
 
     private fun updateCurrentLessonId(lessonId : Int) {
@@ -199,6 +228,14 @@ class LearningFragment : Fragment() {
 
         regexTextInput.editText!!.setText(initialValue)
 
+        initialFlags.split("").forEach{f ->
+            when(f) {
+                "g" -> flagsChipGroup.check(R.id.learning_fragment_chip_global)
+                "m" -> flagsChipGroup.check(R.id.learning_fragment_chip_multiline)
+                "i" -> flagsChipGroup.check(R.id.learning_fragment_chip_ignore_case)
+            }
+        }
+
         if (readOnly) {
             regexTextInput.isEnabled = false
             nextLessonButton.isEnabled = true
@@ -238,6 +275,7 @@ class LearningFragment : Fragment() {
         answerRegex = ""
         answersArrayList = ArrayList<String>()
         contentText = ""
+        flagsChipGroup.clearCheck()
     }
 
     private fun checkAnswer(): Boolean {
