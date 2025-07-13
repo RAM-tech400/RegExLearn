@@ -13,23 +13,10 @@ class Utils {
 
     fun getJSONArrayFromRaw(rawResources: Resources, rawJsonId: Int): JSONArray {
         Log.v(TAG, "getJSONArrayFromRaw()")
-
         val inputStream = rawResources.openRawResource(rawJsonId)
-        val writer = StringWriter()
-        while (true) {
-            val n = inputStream.read()
-
-            if (n < 0) break
-
-            writer.write(n)
-        }
-
-        val stringJSON = writer.toString()
-
+        val stringJSON = inputStream.bufferedReader().use { it.readText() }
         Log.v(TAG, "Closing open streams for making free-up resources...")
         inputStream.close()
-        writer.close()
-
         return JSONArray(stringJSON)
     }
 
@@ -37,7 +24,6 @@ class Utils {
         Log.v(TAG, "getJSONObjectFromRaw()")
         val inputStream = rawResources.openRawResource(rawJsonId)
         val stringJSON = inputStream.bufferedReader().use { it.readText() }
-
         Log.v(TAG, "Closing open streams for making free-up resources...")
         inputStream.close()
         return JSONObject(stringJSON)
