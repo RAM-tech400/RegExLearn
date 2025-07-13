@@ -48,6 +48,7 @@ class RegexUtils {
                 matcher.end(),
                 SpannableString.SPAN_EXCLUSIVE_INCLUSIVE
             )
+            if (!flags.contains("g")) break
         }
         return styledString
     }
