@@ -248,6 +248,8 @@ class LearningFragment : Fragment() {
             regexTextInput.editText!!.setSelection(cursorPosition)
             regexTextInput.editText!!.requestFocus()
             contentTextView.visibility = View.VISIBLE
+            flagsChipGroup.visibility = View.VISIBLE
+            regexTextInput.visibility = View.VISIBLE
             contentTextView.text = content
             contentText = content
 
@@ -263,7 +265,9 @@ class LearningFragment : Fragment() {
         } else {
             regexTextInput.isEnabled = false
             nextLessonButton.isEnabled = true
-            contentTextView.visibility = View.INVISIBLE
+            contentTextView.visibility = View.GONE
+            flagsChipGroup.visibility = View.GONE
+            regexTextInput.visibility = View.GONE
         }
     }
 
