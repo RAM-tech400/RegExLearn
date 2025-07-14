@@ -51,7 +51,6 @@
 
     <style name="Theme.RegExLearn" parent="Base.Theme.RegExLearn" >
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@drawable/avd_splash_icon</item>
-        <item name="android:windowSplashScreenBackground" tools:targetApi="31">#717aff</item>
     </style>
 
     <style name="Theme.RegExLearn.RegexInputEditText">

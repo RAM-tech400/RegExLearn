@@ -24,7 +24,7 @@
                 <path
                     android:name="right_parathese"
                     android:pathData="M 763 761 L 706 704 Q 752 659 776 600.5 Q 800 542 800 478 Q 800 414 775.5 355.5 Q 751 297 706 252 L 763 195 Q 819 252 849.5 325 Q 880 398 880 478 Q 880 558 850 631 Q 820 704 763 761 Z"
-                    android:fillColor="#2d3069"/>
+                    android:fillColor="?attr/colorPrimaryVariant"/>
                 <group
                     android:name="group_left_paranthese"
                     android:pivotX="200"
@@ -35,7 +35,7 @@
                 <path
                     android:name="left_paranthese"
                     android:pathData="M 197 761 Q 141 704 110.5 631 Q 80 558 80 478 Q 80 398 110 325 Q 140 252 197 195 L 254 252 Q 208 297 184 355.5 Q 160 414 160 478 Q 160 542 184.5 600.5 Q 209 659 254 704 L 197 761 Z"
-                    android:fillColor="#2d3069"/>
+                    android:fillColor="?attr/colorPrimaryVariant"/>
                 <group
                     android:name="group_dot"
                     android:pivotX="360"
@@ -46,7 +46,7 @@
                 <path
                     android:name="dot"
                     android:pathData="M 380 720 Q 355 720 337.5 702.5 Q 320 685 320 660 Q 320 635 337.5 617.5 Q 355 600 380 600 Q 405 600 422.5 617.5 Q 440 635 440 660 Q 440 685 422.5 702.5 Q 405 720 380 720 Z"
-                    android:fillColor="#2d3069"/>
+                    android:fillColor="?attr/colorPrimaryVariant"/>
                 <group
                     android:name="group_star"
                     android:pivotX="550"
@@ -57,7 +57,7 @@
                     <path
                         android:name="star"
                         android:pathData="M 519 520 L 519 449 L 458 485 L 418 415 L 479 380 L 418 345 L 458 275 L 519 311 L 519 240 L 599 240 L 599 311 L 660 275 L 700 345 L 639 380 L 700 415 L 660 485 L 599 449 L 599 520 L 519 520 Z"
-                        android:fillColor="#2d3069"/>
+                        android:fillColor="?attr/colorPrimaryVariant"/>
                 </group>
             </group>
         </vector>
@@ -113,7 +113,7 @@
                     android:startOffset="400"
                     android:duration="100"
                     android:valueFrom="#fd9c26"
-                    android:valueTo="#2d3069"
+                    android:valueTo="?attr/colorPrimaryVariant"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
             </set>
@@ -173,7 +173,7 @@
                     android:startOffset="600"
                     android:duration="200"
                     android:valueFrom="#fd9c26"
-                    android:valueTo="#2d3069"
+                    android:valueTo="?attr/colorPrimaryVariant"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
             </set>
@@ -271,7 +271,7 @@
                     android:startOffset="800"
                     android:duration="100"
                     android:valueFrom="#2687fd"
-                    android:valueTo="#2d3069"
+                    android:valueTo="?attr/colorPrimaryVariant"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
             </set>
@@ -293,7 +293,7 @@
                     android:startOffset="800"
                     android:duration="100"
                     android:valueFrom="#2687fd"
-                    android:valueTo="#2d3069"
+                    android:valueTo="?attr/colorPrimaryVariant"
                     android:valueType="colorType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
                 <objectAnimator
