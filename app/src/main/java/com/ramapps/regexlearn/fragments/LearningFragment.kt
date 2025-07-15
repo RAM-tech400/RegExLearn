@@ -113,22 +113,7 @@ class LearningFragment : Fragment() {
         regexTextInput.editText!!.addTextChangedListener(object : TextWatcher{
             val handler = Handler()
             val codeAfterTextEditedRunnable = Runnable {
-                regexTextInput.error = ""
-                val regexInputText = regexTextInput.editText!!.text.toString()
-                Log.d(TAG, "Regex input text changed to $regexInputText")
-                try{
-                    contentTextView.text = RegexUtils().applyStyleToString(Regex(regexInputText), flags, contentText)
-                    Log.v(TAG, "ContentTextView text has been set to: ${contentTextView.text}")
-                    if (checkAnswer()) {
-                        Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
-                        nextLessonButton.isEnabled = true
-                    } else {
-                        Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
-                    }
-                } catch (e : PatternSyntaxException) {
-                    Log.e(TAG, "Wrong regex pattern! Error details: $e")
-                    regexTextInput.error = getString(R.string.wrong_regex_pattern)
-                }
+                refreshRegex()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -148,19 +133,7 @@ class LearningFragment : Fragment() {
                     R.id.learning_fragment_chip_ignore_case -> flags += "i"
                 }
             }
-            try{
-                contentTextView.text = RegexUtils().applyStyleToString(Regex(regexTextInput.editText!!.text.toString()), flags, contentText)
-                Log.v(TAG, "ContentTextView text has been set to: ${contentTextView.text}")
-                if (checkAnswer()) {
-                    Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
-                    nextLessonButton.isEnabled = true
-                } else {
-                    Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
-                }
-            } catch (e : PatternSyntaxException) {
-                Log.e(TAG, "Wrong regex pattern! Error details: $e")
-                regexTextInput.error = getString(R.string.wrong_regex_pattern)
-            }
+            refreshRegex()
             Log.d(TAG, "Enabled flags: $flags")
         }
     }
@@ -172,19 +145,24 @@ class LearningFragment : Fragment() {
 
         lessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
         lastUnlockedLessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+
         val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)!!
         val localizationLessonDataJSON = Utils().getJSONObjectFromRaw(resources, R.raw.lessons_localization_data)
 
         initialFlags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_FLAGS)
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
         answerRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
-
         descriptionText = localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
         contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
         initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
         regexTextInputCursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
         isInteractiveLesson = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
         isReadOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
+
+        var answers = lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
+        for (i in 0 until answers.length()) {
+            answersArrayList.add(answers.getString(i))
+        }
 
         toolbar.title = RegexUtils().formatText(
             localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE)),
@@ -204,11 +182,31 @@ class LearningFragment : Fragment() {
         Log.d(TAG, "Detected cursorPosition: $regexTextInputCursorPosition")
         Log.d(TAG, "Detected interactive: $isInteractiveLesson")
         Log.d(TAG, "Detected readOnly: $isReadOnly")
+        Log.d(TAG, "Detected answers: ${answersArrayList.size} items, ${answersArrayList.joinToString(",")}")
 
         setNextAndPrevButtonState()
         setRegexTextInputState()
         setFlagsChipsState()
         setTextViewsState()
+    }
+
+    private fun refreshRegex() {
+        regexTextInput.error = ""
+        val regexInputText = regexTextInput.editText!!.text.toString()
+        Log.d(TAG, "Regex input text changed to $regexInputText")
+        try{
+            contentTextView.text = RegexUtils().applyStyleToString(Regex(regexInputText), flags, contentText)
+            Log.v(TAG, "ContentTextView text has been set to: ${contentTextView.text}")
+            if (checkAnswer()) {
+                Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
+                nextLessonButton.isEnabled = true
+            } else {
+                Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
+            }
+        } catch (e : PatternSyntaxException) {
+            Log.e(TAG, "Wrong regex pattern! Error details: $e")
+            regexTextInput.error = getString(R.string.wrong_regex_pattern)
+        }
     }
 
     private fun clearPreviousLessonData() {
