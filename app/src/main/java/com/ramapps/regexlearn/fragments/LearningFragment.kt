@@ -153,7 +153,7 @@ class LearningFragment : Fragment() {
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
         answerRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
         descriptionText = localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
-        contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
+        contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT) + "\n"
         initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
         regexTextInputCursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
         isInteractiveLesson = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
