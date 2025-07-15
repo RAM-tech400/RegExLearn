@@ -29,4 +29,9 @@
     <string name="multiline">Multilinea</string>
     <string name="ignore_case">Case-insensitive</string>
     <string name="wrong_regex_pattern">Modello regex sbagliato!</string>
+    <string name="reset_learning_progress">Ripristina i progressi di apprendimento</string>
+    <string name="message_reset_learning_progress_alert">Tutti i tuoi progressi nella sezione apprendimento verranno azzerati. Tutte le lezioni verranno nuovamente bloccate (esclusa la prima). Vuoi continuare?</string>
+    <string name="reset">Reset</string>
+    <string name="learning_progress_reseted_successfully">I tuoi progressi nella sezione apprendimento sono stati azzerati!</string>
+    <string name="undo">Disfare</string>
 </resources>

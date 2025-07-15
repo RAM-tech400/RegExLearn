@@ -29,4 +29,9 @@
     <string name="multiline">Multilínea</string>
     <string name="ignore_case">Bandera que no distingue entre mayúsculas y minúsculas</string>
     <string name="wrong_regex_pattern">¡Patrón regular incorrecto!</string>
+    <string name="reset_learning_progress">Restablecer el progreso del aprendizaje</string>
+    <string name="message_reset_learning_progress_alert">Se reiniciará todo tu progreso en la sección de aprendizaje. Todas las lecciones se bloquearán de nuevo (excepto la primera). ¿Estás seguro de continuar?</string>
+    <string name="reset">Reiniciar</string>
+    <string name="learning_progress_reseted_successfully">¡Tu progreso en la sección de aprendizaje se restableció!</string>
+    <string name="undo">Deshacer</string>
 </resources>

@@ -40,4 +40,9 @@
     <string name="multiline">Multiline</string>
     <string name="ignore_case">Ignore Case</string>
     <string name="wrong_regex_pattern">Wrong regex pattern!</string>
+    <string name="reset_learning_progress">Reset learning progress</string>
+    <string name="message_reset_learning_progress_alert">All your progress in learning section will reset. All lessons will lock again (exclude first lesson). Are you sure to continue?</string>
+    <string name="reset">Reset</string>
+    <string name="learning_progress_reseted_successfully">Your progress in learning section reseted!</string>
+    <string name="undo">Undo</string>
 </resources>

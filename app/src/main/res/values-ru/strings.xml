@@ -29,4 +29,9 @@
     <string name="multiline">Многострочный</string>
     <string name="ignore_case">Игнорировать регистр</string>
     <string name="wrong_regex_pattern">Неправильный шаблон регулярного выражения!</string>
+    <string name="reset_learning_progress">Сбросить прогресс обучения</string>
+    <string name="message_reset_learning_progress_alert">Весь ваш прогресс в разделе «Обучение» будет сброшен. Все уроки будут снова заблокированы (кроме первого). Вы уверены, что хотите продолжить?</string>
+    <string name="reset">Перезагрузить</string>
+    <string name="learning_progress_reseted_successfully">Ваш прогресс в разделе обучения сброшен!</string>
+    <string name="undo">Отменить</string>
 </resources>

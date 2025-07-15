@@ -20,6 +20,7 @@ import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.ramapps.regexlearn.GlobalVariables
 import com.ramapps.regexlearn.R
 import com.ramapps.regexlearn.activities.AboutActivity
@@ -33,6 +34,7 @@ class SettingsFragment : Fragment() {
     private lateinit var languageSettingsItemCardView : MaterialCardView
     private lateinit var defaultFragmentSettingsItemCardView : MaterialCardView
     private lateinit var darkModeSettingsItemCardView : MaterialCardView
+    private lateinit var resetLearningProgressSettingsItemCardView : MaterialCardView
     private lateinit var contactMeSettingsItemCardView : MaterialCardView
     private lateinit var aboutAppSettingsItemCardView : MaterialCardView
     private lateinit var parentView: View
@@ -58,6 +60,7 @@ class SettingsFragment : Fragment() {
         languageSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_language)
         defaultFragmentSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_default_fragment)
         darkModeSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_night_mode)
+        resetLearningProgressSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_reset_learning_progress)
         contactMeSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_contact_me)
         aboutAppSettingsItemCardView = parentView.findViewById(R.id.settings_fragment_card_view_about_app)
     }
@@ -159,6 +162,34 @@ class SettingsFragment : Fragment() {
                 }
                 .create()
             dialog.window!!.attributes.gravity = Gravity.BOTTOM
+            dialog.show()
+        }
+
+        resetLearningProgressSettingsItemCardView.setOnClickListener{
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+                .setIcon(R.drawable.replay_24)
+                .setTitle(getString(R.string.reset_learning_progress))
+                .setMessage(getString(R.string.message_reset_learning_progress_alert))
+                .setPositiveButton(getString(R.string.reset)) { dia, _ ->
+                    Log.d(TAG, "Resetting learning progress...")
+                    val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)!!
+                    val lastUnlockedLessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+                    val lessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+                    prefs.edit {
+                        putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+                        putInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+                    }
+                    Snackbar.make(parentView, R.string.learning_progress_reseted_successfully, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.undo, {
+                            prefs.edit {
+                                putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, lastUnlockedLessonId)
+                                putInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, lessonId)
+                            }
+                        }).show()
+                    dia.dismiss()
+                }
+                .setNegativeButton(getString(android.R.string.cancel), null)
+                .create()
             dialog.show()
         }
 

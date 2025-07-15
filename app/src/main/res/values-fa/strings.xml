@@ -29,4 +29,9 @@
     <string name="multiline">چند خطی</string>
     <string name="ignore_case">بدون حساسیت</string>
     <string name="wrong_regex_pattern">الگوی regex اشتباه است!</string>
+    <string name="reset_learning_progress">تنظیم مجدد پیشرفت یادگیری</string>
+    <string name="message_reset_learning_progress_alert">تمام پیشرفت شما در بخش یادگیری مجدداً تنظیم می‌شود. همه درس‌ها دوباره قفل می‌شوند (به جز درس اول). آیا مطمئنید که ادامه می‌دهید؟</string>
+    <string name="reset">تنظیم مجدد</string>
+    <string name="learning_progress_reseted_successfully">پیشرفت شما در بخش یادگیری مجدداً تنظیم شد!</string>
+    <string name="undo">بازگرداندن</string>
 </resources>

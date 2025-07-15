@@ -153,7 +153,7 @@
                 android:clickable="true"
                 android:layout_marginTop="4dp"
                 app:cardPreventCornerOverlap="false"
-                app:shapeAppearance="@style/ShapeAppearanceListItemCardViewBottom">
+                app:shapeAppearance="@style/ShapeAppearanceListItemCardViewMiddle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -194,6 +194,54 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="@string/system_default"
                         android:id="@+id/settings_fragment_text_view_description_night_mode"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:id="@+id/settings_fragment_card_view_reset_learning_progress"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginTop="4dp"
+                app:cardBackgroundColor="?attr/colorErrorContainer"
+                app:cardPreventCornerOverlap="false"
+                app:shapeAppearance="@style/ShapeAppearanceListItemCardViewBottom">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/replay_24"
+                        app:tint="?attr/colorOnErrorContainer"
+                        android:id="@+id/settings_fragment_image_view_icon_reset_learning_progress"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/settings_fragment_image_view_icon_reset_learning_progress"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@string/reset_learning_progress"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="?attr/colorOnErrorContainer"
+                        android:id="@+id/settings_fragment_text_view_title_reset_learning_progress"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

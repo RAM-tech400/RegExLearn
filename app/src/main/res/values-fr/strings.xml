@@ -29,4 +29,9 @@
     <string name="multiline">Multiligne</string>
     <string name="ignore_case">insensible à la casse</string>
     <string name="wrong_regex_pattern">Mauvais modèle d\'expression régulière !</string>
+    <string name="reset_learning_progress">Réinitialiser la progression de l\'apprentissage</string>
+    <string name="message_reset_learning_progress_alert">Votre progression dans la section d\'apprentissage sera réinitialisée. Toutes les leçons seront à nouveau verrouillées (sauf la première). Voulez-vous continuer ?</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="learning_progress_reseted_successfully">Votre progression dans la section d\'apprentissage est réinitialisée !</string>
+    <string name="undo">Défaire</string>
 </resources>

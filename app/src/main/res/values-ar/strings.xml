@@ -29,4 +29,9 @@
     <string name="multiline">متعددة الأسطر</string>
     <string name="ignore_case">عدم حساسية الحالة</string>
     <string name="wrong_regex_pattern">نمط التعبيرات العادية خاطئ!</string>
+    <string name="reset_learning_progress">إعادة تعيين تقدم التعلم</string>
+    <string name="message_reset_learning_progress_alert">سيتم إعادة ضبط جميع تقدّمك في قسم التعلّم. سيتم قفل جميع الدروس مجددًا (باستثناء الدرس الأول). هل أنت متأكد من المتابعة؟</string>
+    <string name="reset">إعادة ضبط</string>
+    <string name="learning_progress_reseted_successfully">تمت إعادة تعيين تقدمك في قسم التعلم!</string>
+    <string name="undo">التراجع</string>
 </resources>

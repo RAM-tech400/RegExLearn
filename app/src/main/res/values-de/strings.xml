@@ -29,4 +29,9 @@
     <string name="multiline">Mehrzeiliges</string>
     <string name="ignore_case">Groß-/Kleinschreibung beachten</string>
     <string name="wrong_regex_pattern">Falsches Regex-Muster!</string>
+    <string name="reset_learning_progress">Lernfortschritt zurücksetzen</string>
+    <string name="message_reset_learning_progress_alert">Ihr gesamter Lernfortschritt wird zurückgesetzt. Alle Lektionen (außer der ersten) werden wieder gesperrt. Möchten Sie wirklich fortfahren?</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="learning_progress_reseted_successfully">Ihr Lernfortschritt wurde zurückgesetzt!</string>
+    <string name="undo">Rückgängig machen</string>
 </resources>
