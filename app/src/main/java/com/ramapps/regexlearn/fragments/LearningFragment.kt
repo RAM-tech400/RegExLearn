@@ -168,6 +168,8 @@ class LearningFragment : Fragment() {
     private fun loadLesson() {
         val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)!!
 
+        clearPreviousLessonData()
+
         lessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
         lastUnlockedLessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
         val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)!!
@@ -203,8 +205,6 @@ class LearningFragment : Fragment() {
         Log.d(TAG, "Detected interactive: $isInteractiveLesson")
         Log.d(TAG, "Detected readOnly: $isReadOnly")
 
-        clearPreviousLessonData()
-        updateLessonIds()
         setNextAndPrevButtonState()
         setRegexTextInputState()
         setFlagsChipsState()
