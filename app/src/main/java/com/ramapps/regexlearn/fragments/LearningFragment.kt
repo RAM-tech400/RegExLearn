@@ -1,9 +1,6 @@
 package com.ramapps.regexlearn.fragments
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -14,20 +11,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.content.edit
 import androidx.core.text.toSpanned
-import androidx.core.view.updateMarginsRelative
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 import com.ramapps.regexlearn.GlobalVariables
 import com.ramapps.regexlearn.Listeners
@@ -47,15 +37,22 @@ class LearningFragment : Fragment() {
     private lateinit var flagsChipGroup: ChipGroup
 
     private var lessonId = 0
+    private var lastUnlockedLessonId = 0
     private var initialFlags = ""
+    private var initialValue = ""
     private var flags = ""
     private var answerRegex = ""
     private var answersArrayList = ArrayList<String>()
+    private var descriptionText = ""
     private var contentText = ""
+    private var isReadOnly = false
+    private var isInteractiveLesson = true
+    private var regexTextInputCursorPosition = 0
     private val lessonSelectionBottomSheet = LessonSelectionBottomSheet(object : Listeners.LessonSelection {
         override fun onSelect(lessonId: Int) {
             Log.v(TAG, "Lesson selection listener, Selected Lesson Id: $lessonId")
-            updateCurrentLessonId(lessonId)
+            this@LearningFragment.lessonId = lessonId
+            updateLessonIds()
             loadLesson()
         }
     })
@@ -97,16 +94,18 @@ class LearningFragment : Fragment() {
 
         previousLessonButton.setOnClickListener{
             if (lessonId > 0) {
-                Log.v(TAG, "Loading previous lesson. Id:${lessonId - 1}")
-                updateCurrentLessonId(lessonId - 1)
+                lessonId -= 1
+                updateLessonIds()
+                Log.v(TAG, "Loading previous lesson. Id:${lessonId}")
                 loadLesson()
             }
         }
 
         nextLessonButton.setOnClickListener{
             if (lessonId < (Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).length() - 1)) {
-                Log.v(TAG, "Loading previous lesson. Id:${lessonId + 1}")
-                updateCurrentLessonId(lessonId + 1)
+                lessonId += 1
+                updateLessonIds()
+                Log.v(TAG, "Loading next lesson. Id:${lessonId}")
                 loadLesson()
             }
         }
@@ -166,120 +165,123 @@ class LearningFragment : Fragment() {
         }
     }
 
-    private fun updateCurrentLessonId(lessonId : Int) {
-        Log.v(TAG, "updateCurrentLessonId($lessonId)")
-        requireActivity().getSharedPreferences(
-            GlobalVariables.PREFERENCES_NAME_USER_DATA,
-            Activity.MODE_PRIVATE).edit {
-            putInt(
-                GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON,
-                lessonId
-            )
-        }
-    }
-
     private fun loadLesson() {
-        clearPreviousLessonData()
+        val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)!!
 
-        lessonId = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE).getInt(
-            GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
-        val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)
-        val localizationLessonData = Utils().getJSONObjectFromRaw(resources,
-            R.raw.lessons_localization_data
-        )
-
-        Log.d(TAG, "Selected lesson data that we should load: $lessonDataJSON")
-
-        val lastOpenedLessonId = requireActivity().getSharedPreferences(
-            GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
-            .getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
-
-        nextLessonButton.isEnabled = (lessonId + 1) <= lastOpenedLessonId
-
-        if (lessonId > lastOpenedLessonId) {
-            updateCurrentLessonId(lessonId)
-        }
+        lessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
+        lastUnlockedLessonId = prefs.getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+        val lessonDataJSON = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).getJSONObject(lessonId)!!
+        val localizationLessonDataJSON = Utils().getJSONObjectFromRaw(resources, R.raw.lessons_localization_data)
 
         initialFlags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_FLAGS)
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
         answerRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
 
-        val title = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE))
-        val description = localizationLessonData.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
-        val content = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
-        val initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
-        val cursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
-        val interactive = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
-        val readOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
+        descriptionText = localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
+        contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
+        initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
+        regexTextInputCursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
+        isInteractiveLesson = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
+        isReadOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
 
+        toolbar.title = RegexUtils().formatText(
+            localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_TITLE)),
+            android.R.attr.colorActivatedHighlight,
+            formatMarker = "`")
+
+        Log.d(TAG, "Selected lesson data that we should load: $lessonDataJSON")
+        Log.d(TAG, "Selected lesson id: $lessonId")
+        Log.d(TAG, "Selected last opened lesson id: $lastUnlockedLessonId")
         Log.d(TAG, "Detected initialFlags: $initialFlags")
         Log.d(TAG, "Detected flags: $flags")
         Log.d(TAG, "Detected answerRegex: $answerRegex")
-        Log.d(TAG, "Detected title: $title")
-        Log.d(TAG, "Detected description: $description")
-        Log.d(TAG, "Detected content: $content")
+        Log.d(TAG, "Detected title: ${toolbar.title}")
+        Log.d(TAG, "Detected description: $descriptionText")
+        Log.d(TAG, "Detected content: $contentText")
         Log.d(TAG, "Detected initialValue: $initialValue")
-        Log.d(TAG, "Detected cursorPosition: $cursorPosition")
-        Log.d(TAG, "Detected interactive: $interactive")
-        Log.d(TAG, "Detected readOnly: $readOnly")
+        Log.d(TAG, "Detected cursorPosition: $regexTextInputCursorPosition")
+        Log.d(TAG, "Detected interactive: $isInteractiveLesson")
+        Log.d(TAG, "Detected readOnly: $isReadOnly")
 
-        toolbar.title = RegexUtils().formatText(title, android.R.attr.colorActivatedHighlight, formatMarker = "`")
-        descriptionTextView.text = RegexUtils().formatText(description, android.R.attr.colorActivatedHighlight, formatMarker = "`")
+        clearPreviousLessonData()
+        updateLessonIds()
+        setNextAndPrevButtonState()
+        setRegexTextInputState()
+        setFlagsChipsState()
+        setTextViewsState()
+    }
 
+    private fun clearPreviousLessonData() {
+        Log.v(TAG, "clearPreviousLessonData()")
+        initialFlags = ""
+        flags = ""
+        answerRegex = ""
+        answersArrayList = ArrayList()
+        contentText = ""
+        flagsChipGroup.clearCheck()
+    }
+
+    private fun updateLessonIds() {
+        Log.v(TAG, "updateLessonIds()")
+        Log.d(TAG, "Updating Lesson Ids; selected: $lessonId, lastUnlocked: $lastUnlockedLessonId")
+        val prefs = requireActivity().getSharedPreferences(GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
+        prefs.edit { putInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, lessonId) }
+        if (lessonId > lastUnlockedLessonId) {
+            lastUnlockedLessonId = lessonId
+            prefs.edit { putInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, lastUnlockedLessonId) }
+        }
+    }
+
+    private fun setNextAndPrevButtonState() {
+        Log.v(TAG, "setNextAndPrevButtonState()")
+        val lessonsCount = Utils().getJSONArrayFromRaw(resources, R.raw.lessons_data).length()
+        val lastUnlockedLessonId = requireActivity().getSharedPreferences(
+            GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE).getInt(
+            GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
+
+        previousLessonButton.visibility = View.VISIBLE
+        nextLessonButton.visibility = View.VISIBLE
+        nextLessonButton.isEnabled = true
+
+        when (lessonId) {
+            0 -> previousLessonButton.visibility = View.GONE
+            lessonsCount - 1 -> nextLessonButton.visibility = View.GONE
+            lastUnlockedLessonId -> nextLessonButton.isEnabled = false
+        }
+
+        if (isReadOnly || !isInteractiveLesson) nextLessonButton.isEnabled = true
+    }
+
+    private fun setRegexTextInputState() {
+        Log.v(TAG, "setRegexTextInputState()")
         regexTextInput.editText!!.setText(initialValue)
+        regexTextInput.isEnabled = !isReadOnly
+        regexTextInput.visibility = if (isInteractiveLesson) { View.VISIBLE } else { View.GONE }
+        regexTextInput.editText!!.setSelection(regexTextInputCursorPosition)
+        regexTextInput.requestFocus()
+    }
 
-        initialFlags.split("").forEach{f ->
-            when(f) {
+    private fun setFlagsChipsState() {
+        Log.v(TAG, "setFlagsChipsState()")
+        initialFlags.split("").forEach { flag ->
+            when(flag) {
                 "g" -> flagsChipGroup.check(R.id.learning_fragment_chip_global)
                 "m" -> flagsChipGroup.check(R.id.learning_fragment_chip_multiline)
                 "i" -> flagsChipGroup.check(R.id.learning_fragment_chip_ignore_case)
             }
         }
 
-        if (readOnly) {
-            regexTextInput.isEnabled = false
-            nextLessonButton.isEnabled = true
-        } else {
-            regexTextInput.isEnabled = true
-        }
-
-        if (interactive) {
-            regexTextInput.isEnabled = true
-            regexTextInput.editText!!.setSelection(cursorPosition)
-            regexTextInput.editText!!.requestFocus()
-            contentTextView.visibility = View.VISIBLE
-            flagsChipGroup.visibility = View.VISIBLE
-            regexTextInput.visibility = View.VISIBLE
-            contentTextView.text = content
-            contentText = content
-
-            for (i in 0..<(lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
-                ?.length() ?: 0)) {
-                lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)?.let {
-                    Log.d(TAG, "Detected answers: $it")
-                    answersArrayList.add(
-                        it.getString(i)
-                    )
-                }
-            }
-        } else {
-            regexTextInput.isEnabled = false
-            nextLessonButton.isEnabled = true
-            contentTextView.visibility = View.GONE
-            flagsChipGroup.visibility = View.GONE
-            regexTextInput.visibility = View.GONE
-        }
+        flagsChipGroup.isEnabled = !isReadOnly
+        flagsChipGroup.visibility = if (isInteractiveLesson) { View.VISIBLE } else { View.GONE }
     }
 
-    private fun clearPreviousLessonData() {
-        Log.v(TAG, "clearPreviousLessonData()")
-        lessonId = 0
-        initialFlags = ""
-        flags = ""
-        answerRegex = ""
-        answersArrayList = ArrayList<String>()
-        contentText = ""
-        flagsChipGroup.clearCheck()
+    private fun setTextViewsState() {
+        Log.v(TAG, "setTextViewsState()")
+
+        descriptionTextView.text = RegexUtils().formatText(descriptionText, android.R.attr.colorActivatedHighlight, formatMarker = "`")
+
+        contentTextView.visibility = if (isInteractiveLesson) { View.VISIBLE } else { View.GONE }
+        contentTextView.text = contentText
     }
 
     private fun checkAnswer(): Boolean {
