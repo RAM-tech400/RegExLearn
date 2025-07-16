@@ -25,6 +25,8 @@ import com.ramapps.regexlearn.R
 import com.ramapps.regexlearn.RegexUtils
 import com.ramapps.regexlearn.RoundedBackgroundSpan
 import com.ramapps.regexlearn.Utils
+import org.json.JSONArray
+import java.util.Objects
 import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
@@ -159,7 +161,7 @@ class LearningFragment : Fragment() {
         isInteractiveLesson = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
         isReadOnly = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INITIAL_READ_ONLY)
 
-        var answers = lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER)
+        var answers = if (!isInteractiveLesson) {JSONArray()} else { lessonDataJSON.optJSONArray(GlobalVariables.LESSON_JSON_KEY_ANSWER) }
         for (i in 0 until answers.length()) {
             answersArrayList.add(answers.getString(i))
         }
