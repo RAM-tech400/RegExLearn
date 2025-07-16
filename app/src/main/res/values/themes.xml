@@ -61,6 +61,7 @@
         <item name="drawableTint">?attr/colorPrimaryVariant</item>
         <item name="android:singleLine">true</item>
         <item name="android:imeOptions">actionDone</item>
+        <item name="android:textDirection">ltr</item>
     </style>
 
     <style name="ShapeAppearanceListItemCardViewSingle">
