@@ -46,10 +46,14 @@ class RegexUtils {
                 RoundedBackgroundSpan(highlightColor, backgroundAlpha = 128),
                 matcher.start(),
                 matcher.end(),
-                SpannableString.SPAN_EXCLUSIVE_INCLUSIVE
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             if (!flags.contains("g")) break
         }
+
+        //Adding a newline char for fixing the problem for hiding full text styling with RoundedBackgroundSpan. (Occurs only in one line strings.)
+        if (!styledString.contains("\n")) styledString.append("\n")
+
         return styledString
     }
 

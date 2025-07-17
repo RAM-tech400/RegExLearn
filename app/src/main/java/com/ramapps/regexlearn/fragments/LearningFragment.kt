@@ -27,6 +27,7 @@ import com.ramapps.regexlearn.RegexUtils
 import com.ramapps.regexlearn.RoundedBackgroundSpan
 import com.ramapps.regexlearn.Utils
 import org.json.JSONArray
+import java.util.Objects
 import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
@@ -159,7 +160,7 @@ class LearningFragment : Fragment() {
         flags = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_FLAGS)
         answerRegex = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_REGEX)
         descriptionText = localizationLessonDataJSON.optString(lessonDataJSON.getString(GlobalVariables.LESSON_JSON_KEY_DESCRIPTION))
-        contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT) + "\n"
+        contentText = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_CONTENT)
         initialValue = lessonDataJSON.optString(GlobalVariables.LESSON_JSON_KEY_INITIAL_VALUE)
         regexTextInputCursorPosition = lessonDataJSON.optInt(GlobalVariables.LESSON_JSON_KEY_CURSOR_POSITION)
         isInteractiveLesson = lessonDataJSON.optBoolean(GlobalVariables.LESSON_JSON_KEY_INTERACTIVE, true)
