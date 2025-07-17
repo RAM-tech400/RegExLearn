@@ -8,7 +8,7 @@
                 android:top="12dp"
                 android:bottom="12dp"/>
             <corners android:radius="24dp"/>
-            <solid android:color="?attr/colorSurfaceContainer"/>
+            <solid android:color="?attr/colorSurfaceContainerLow"/>
         </shape>
     </item>
     <item android:state_enabled="false">
