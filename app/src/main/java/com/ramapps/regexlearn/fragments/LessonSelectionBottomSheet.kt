@@ -7,10 +7,12 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.view.updateMarginsRelative
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -62,21 +64,24 @@ class LessonSelectionBottomSheet(private val lessonSelectionListener: Listeners.
             val v = LayoutInflater.from(requireContext()).inflate(R.layout.item_view_lesson, null)
             val lessonTitleTextView = v.findViewById<TextView>(R.id.item_view_lesson_text_view_title)
             val stateImageView = v.findViewById<ImageView>(R.id.item_view_lesson_image_view_state)
-            val parentLayout = v.findViewById<LinearLayout>(R.id.item_view_lesson_parent)
+            val parentLayout = v.findViewById<FrameLayout>(R.id.item_view_lesson_parent)
+            val cardView = v.findViewById<CardView>(R.id.item_view_lesson_card_view)
 
             lessonTitleTextView.text = RegexUtils().formatText(t, android.R.attr.colorActivatedHighlight, formatMarker = "`")
 
+            val selectedLessonId = requireActivity().getSharedPreferences(
+                GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
+                .getInt(GlobalVariables.PREFERENCES_USER_DATA_SELECTED_LESSON, 0)
             val lastOpenedLessonId = requireActivity().getSharedPreferences(
                 GlobalVariables.PREFERENCES_NAME_USER_DATA, Activity.MODE_PRIVATE)
                 .getInt(GlobalVariables.PREFERENCES_USER_DATA_LAST_LESSON, 0)
 
             if (i < lastOpenedLessonId) {
-                val harmonizedColorForDone = MaterialColors.harmonize((0xff00ff00).toInt(), android.R.attr.textColorPrimary)
                 stateImageView.setImageResource(R.drawable.outline_done_outline_24)
-                stateImageView.imageTintList = ColorStateList(
-                    arrayOf(intArrayOf(android.R.attr.state_enabled)),
-                    intArrayOf(harmonizedColorForDone))
-                lessonTitleTextView.setTextColor(harmonizedColorForDone)
+            }
+
+            if (i != selectedLessonId) {
+                cardView.setCardBackgroundColor(resources.getColor(android.R.color.transparent))
             }
 
             if (i > lastOpenedLessonId) {
