@@ -43,6 +43,7 @@
                 android:focusable="true"
                 android:clickable="true"
                 app:cardPreventCornerOverlap="false"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLowest"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceListItemCardViewTop">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +55,7 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +100,7 @@
                 android:clickable="true"
                 android:layout_marginTop="4dp"
                 app:cardPreventCornerOverlap="false"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLowest"
                 app:shapeAppearance="@style/ShapeAppearanceListItemCardViewMiddle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,6 +112,7 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -153,6 +157,7 @@
                 android:clickable="true"
                 android:layout_marginTop="4dp"
                 app:cardPreventCornerOverlap="false"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLowest"
                 app:shapeAppearance="@style/ShapeAppearanceListItemCardViewMiddle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,6 +169,7 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -256,6 +262,7 @@
                 android:clickable="true"
                 android:layout_marginTop="24dp"
                 app:cardPreventCornerOverlap="false"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLowest"
                 app:shapeAppearance="@style/ShapeAppearanceListItemCardViewTop">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -267,6 +274,7 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -312,6 +320,7 @@
                 android:clickable="true"
                 android:layout_marginTop="4dp"
                 app:cardPreventCornerOverlap="false"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerLowest"
                 app:shapeAppearance="@style/ShapeAppearanceListItemCardViewBottom">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -323,6 +332,7 @@
                     android:paddingBottom="16dp">
 
                     <ImageView
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         app:layout_constraintStart_toStartOf="parent"
