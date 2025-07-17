@@ -27,6 +27,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/learning_fragment_nested_scroll_view"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
@@ -119,10 +120,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/learning_fragment_button_previous_lesson"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:backgroundTint="?attr/colorErrorContainer"
+                    android:textColor="?attr/colorOnErrorContainer"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/previous" />
+                    android:text="@string/previous"/>
 
                 <Button
                     android:layout_width="wrap_content"
