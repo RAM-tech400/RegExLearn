@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.content.edit
 import androidx.core.text.toSpanned
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
@@ -26,10 +27,11 @@ import com.ramapps.regexlearn.RegexUtils
 import com.ramapps.regexlearn.RoundedBackgroundSpan
 import com.ramapps.regexlearn.Utils
 import org.json.JSONArray
-import java.util.Objects
 import java.util.regex.PatternSyntaxException
 
 class LearningFragment : Fragment() {
+    private lateinit var parentView: View
+    private lateinit var nestedScrollView: NestedScrollView
     private lateinit var toolbar: Toolbar
     private lateinit var descriptionTextView : TextView
     private lateinit var contentTextView : TextView
@@ -71,6 +73,8 @@ class LearningFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
+        parentView = view
+        nestedScrollView = view.findViewById(R.id.learning_fragment_nested_scroll_view)
         toolbar = view.findViewById(R.id.learning_fragment_toolbar)
         descriptionTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_description)
         contentTextView = view.findViewById(R.id.learning_fragment_text_view_lesson_content)
@@ -190,6 +194,8 @@ class LearningFragment : Fragment() {
         setRegexTextInputState()
         setFlagsChipsState()
         setTextViewsState()
+
+        nestedScrollView.smoothScrollTo(0, 0)
     }
 
     private fun refreshRegex() {
@@ -202,6 +208,7 @@ class LearningFragment : Fragment() {
             if (checkAnswer()) {
                 Log.v(TAG, "Checking answer return true. The next lesson button will enabled.")
                 nextLessonButton.isEnabled = true
+                nestedScrollView.smoothScrollTo(0, resources.displayMetrics.heightPixels)
             } else {
                 Log.v(TAG, "Checking answer return false. So regex pattern is incorrect.")
             }
