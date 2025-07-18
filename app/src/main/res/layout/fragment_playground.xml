@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/playground_fragment_toolbar"
-            app:title="@string/playground"
-            app:menu="@menu/playground_toolbar_menu"/>
+            app:title="@string/playground"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
