@@ -36,13 +36,14 @@
             android:paddingEnd="16dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="192dp"
-                android:layout_height="192dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_launcher_foreground"
+                android:background="@color/ic_launcher_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="48dp"
                 android:id="@+id/about_image_view_app_icon"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
 
@@ -70,6 +71,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                 android:textColor="?colorPrimaryVariant"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/about_button_view_github"
+                app:icon="@drawable/ic_github"
+                app:layout_constraintTop_toBottomOf="@id/about_text_view_developer_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="48dp"
+                style="@style/Widget.Material3.Button.IconButton.Filled" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
